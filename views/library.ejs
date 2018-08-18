@@ -1,0 +1,21 @@
+<%_ include partials/header _%>
+		<div class="row">
+			<%_ include partials/news_banner _%>
+		</div>
+		<section class="blog">
+			<div class="col-sm-4 col blog-nav">
+				<%_ if (posts && posts.length) { _%>
+					<%_ posts.forEach(post => { _%>
+						<div class="row link title" id="<%= post._id %>"><%= post.title %></div>
+					<%_ }) _%>
+				<%_ } else { _%>
+					<div class="row link title">No blog posts yet...</div>
+				<%_ } _%>
+			</div>
+			<div class="col-sm-8 col blog-container">
+				<div class="blog-body">
+					content
+				</div>
+			</div>
+		</section>
+<%_ include partials/footer _%>
