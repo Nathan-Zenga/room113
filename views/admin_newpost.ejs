@@ -1,0 +1,31 @@
+<%_ include partials/header _%>
+		<form class="form-group centre" id="newpost" method="post" action="/admin/library/post">
+			<fieldset>
+				<label class="sr-only">Title</label>
+				<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
+
+				<label class="sr-only">Subtitle</label>
+				<input class="form-control details" type="text" id="subtitle" name="subtitle" placeholder="Subtitle">
+
+				<label class="sr-only">Text body</label>
+				<textarea class="form-control details" type="text" id="textbody" name="textbody" placeholder="Write your stuff..."></textarea>
+
+				<label class="sr-only">Image</label>
+				<div class="input-group details">
+					<label class="input-group-btn">
+						<span class="btn">
+							Choose image&hellip; <input type="file" name="img" style="display: none;" multiple>
+						</span>
+					</label>
+					<input type="text" class="form-control filename-display" readonly>
+				</div>
+
+				<label class="sr-only">Tags</label>
+				<input class="form-control details" type="text" id="tags" name="tags" placeholder="Tags (separate each with commas)">
+
+				<label class="sr-only">POST</label>
+				<input class="form-control submit" type="submit" value="Post">
+				<div class="result"></div>
+			</fieldset>
+		</form>
+<%_ include partials/footer _%>

@@ -138,8 +138,33 @@ section,
 	text-align: center;
 }
 
+.library.page .blog .post {
+	padding-top: 1.5em;
+}
+
+.library.page .blog .post > .row {
+	margin-bottom: .5em;
+}
+
 @media (min-width: 768px) {
 	.library.page .blog .col.blog-nav {
 		height: 100%;
 	}
+}
+
+.library.page.admin #newpost {
+	max-width: 500px;
+	padding: 0 20px;
+}
+
+.library.page.admin #newpost .details {
+	margin-bottom: 2em;
+}
+
+.library.page.admin #newpost .filename-display {
+	border-radius: 4px;
+}
+
+.library.page.admin .inner-body {
+	background-color: grey;
 }
