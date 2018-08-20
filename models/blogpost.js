@@ -5,7 +5,8 @@ var PostSchema = mongoose.Schema({
 	title: String,
 	subtitle: String,
 	textbody: String,
-	tags: Array
+	tags: Array,
+	mediaList: Array
 }, {
 	timestamps: {
 		createdAt: 'created_at',

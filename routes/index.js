@@ -4,7 +4,6 @@ var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var Grid = require('gridfs-stream');
 var blog = require('../models/blogpost');
-var upload = require('../config/upload');
 
 let conn = mongoose.connection;
 
@@ -23,43 +22,22 @@ router.get('/cinema', (req, res) => {
 	res.render('cinema', { page: 'cinema' });
 });
 
-router.get('/library', (req, res) => {
+var isAdmin = (req, res, bool) => {
 	blog.find((err, posts) => {
-		gfs.files.find().toArray((err, files) => {
-			res.render('library', {
-				page: 'library',
-				posts: posts,
-				media: files
-			})
+		res.render('library', {
+			page: 'library',
+			posts: posts,
+			admin: bool
 		})
 	})
+}
+
+router.get('/library', (req, res) => {
+	isAdmin(req, res, false);
 });
 
-router.get('/admin/newpost', (req, res) => {
-	res.render('admin_newpost', { page: 'library admin' });
-});
-
-router.post('/admin/library/post', (req, res) => {
-	var newPost = new blog({
-		title: req.body.title,
-		subtitle: req.body.subtitle,
-		textbody: req.body.textbody,
-		tags: req.body.tags.split(',')
-	});
-
-	if (req.body.img) {
-		var icon = upload.single('img'); // field name
-
-		// new upload process
-		icon(req, res, err => {
-			if (err) {
-				// req.flash('error_msg', `${err}`);
-				console.log(err);
-			}
-		});
-	}
-
-	newPost.save(err => { if (err) throw err; res.redirect('/library') });
+router.get('/admin/library', (req, res) => {
+	isAdmin(req, res, true);
 });
 
 // Display profile icon

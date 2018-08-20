@@ -4,27 +4,26 @@
 		</div>
 		<section class="blog">
 			<%_ if (posts && posts.length) { _%>
-				<div class="col-sm-4 col blog-nav">
+				<div class="col-sm-3 col blog-nav">
 					<%_ posts.forEach(post => { _%>
 						<div class="row link title" id="<%= post._id %>"><%= post.title %></div>
 					<%_ }) _%>
 				</div>
 			<%_ } _%>
-			<div class="col-sm-<%= posts && posts.length ? 8 : 12 %> col blog-container">
+			<div class="col-sm-<%= posts && posts.length ? 9 : 12 %> col blog-container">
 				<div class="blog-body">
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach(post => { _%>
-							<div class="post">
+							<div class="post" data-id="<%= post._id %>">
+								<%_ if (admin) { _%><div class="delete-post">&times;</div><%_ } _%>
 								<%_ if (post.title) { _%>
 									<div class="row post-title">
 										<h2 class="main-title" style="display: inline;"><%= post.title %></h2>
-										<%_ if (post.subtitle) _%>:&#8195;<small class="sub-title" style="display: inline;"><%= post.subtitle %></small>
+										<%_ if (post.subtitle) { _%>&#8195;<i class="sub-title" style="display: inline;"><%= post.subtitle %></i><%_ } _%>
 									</div>
 								<%_ } _%>
-								<%_ if (media && media.length) { _%>
-									<%_ var url; _%>
-									<%_ media.forEach(img => { if (img.filename.includes(post._id)) url = "/media/" + img.filename }) _%>
-									<%_ if (url) _%><div class="row post-main-img"><img src="<%= url %>"></div>
+								<%_ if (post.mediaList.length) { _%>
+									<div class="row post-main-img"><img src="/media/<%= post.mediaList[0] %>"></div>
 								<%_ } _%>
 								<%_ if (post.textbody) { _%>
 									<div class="row post-textbody">
@@ -42,7 +41,7 @@
 							</div>
 						<%_ }) _%>
 					<%_ } else { _%>
-						No blog posts yet...
+						<p style="text-align: center;">No blog posts yet...</p>
 					<%_ } _%>
 				</div>
 			</div>

@@ -1,24 +1,20 @@
 const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
 const path = require('path');
 const crypto = require('crypto');
-const GridFsStorage = require('multer-gridfs-storage');
-const config = require('../config/config');
+const config = require('./config');
 const blog = require('../models/blogpost');
 
 // Set The Storage Engine
 const storage = new GridFsStorage({
 	url: config.db,
 	file: (req, file) => {
-		blog.find().sort({created_at: -1}).exec((err, posts) => {
-			var id = posts[0]._id;
-			return new Promise((resolve, reject) => {
-				crypto.randomBytes(10, (err, buf) => {
-					if (err) return reject(err);
-					const fileInfo = {
-						filename: "m" + id + buf + path.extname(file.originalname),
-						bucketName: 'post_media'
-					};
-					resolve(fileInfo);
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(16, (err, buf) => {
+				if (err) return reject(err);
+				resolve({
+					filename: buf.toString('hex') + path.extname(file.originalname),
+					bucketName: 'post_media'
 				});
 			});
 		});
@@ -28,7 +24,6 @@ const storage = new GridFsStorage({
 // Init Upload
 const upload = multer({
 	storage: storage,
-	limits:{fileSize: 1000000},
 	fileFilter: function(req, file, cb){
 		checkFileType(file, cb);
 	}

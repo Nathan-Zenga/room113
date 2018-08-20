@@ -43,6 +43,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', require('./routes/index'));
+app.use('/admin/blog/post', require('./routes/admin-blog'));
 
 var port = process.env.PORT || 1113;
 app.listen(port, function() {

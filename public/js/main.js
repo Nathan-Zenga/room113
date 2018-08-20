@@ -61,5 +61,27 @@ $(function() {
 			if( log ) alert(log);
 		}
 	});
-	
+
+	$("#newpost > .submit").click(function(e) {
+		e.preventDefault();
+
+		var $details = $("#newpost .details");
+		var data = {};
+
+		$details.each(function() {
+			var key = $(this).attr('name');
+			data[key] = $(this).val();
+		});
+
+		$.post('/admin/blog/post/submit', data, function(r,s) {
+			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
+		});
+	});
+
+	$(".delete-post").click(function(){
+		var id = {id: $(this).parent().data('id')};
+		$.post('/admin/blog/post/delete', id, function(r,s) {
+			location.pathname = r;
+		});
+	})
 });
