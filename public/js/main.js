@@ -3,7 +3,7 @@ $(function() {
 		var arr = [];
 
 		for (var i = 0; i < 3; i++) {
-			arr.push(Math.floor(Math.random() * 255));
+			arr.push(Math.round(Math.random() * 255));
 		}
 
 		arr = "rgb(" + arr.join(",") + ")";
