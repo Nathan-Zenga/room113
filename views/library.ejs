@@ -1,16 +1,14 @@
 <%_ include partials/header _%>
-		<div class="row">
-			<%_ include partials/news_banner _%>
-		</div>
+		<%_ include partials/news_banner _%>
 		<section class="blog">
 			<%_ if (posts && posts.length) { _%>
-				<div class="col-sm-3 col blog-nav">
+				<nav class="col-sm-3 col blog-nav">
 					<%_ posts.forEach(post => { _%>
 						<div class="row link title" id="<%= post._id %>"><%= post.title %></div>
 					<%_ }) _%>
-				</div>
+				</nav>
 			<%_ } _%>
-			<div class="col-sm-<%= posts && posts.length ? 9 : 12 %> col blog-container">
+			<main class="col-sm-<%= posts && posts.length ? 9 : 12 %> col blog-container">
 				<div class="blog-body">
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach(post => { _%>
@@ -44,6 +42,6 @@
 						<p style="text-align: center;">No blog posts yet...</p>
 					<%_ } _%>
 				</div>
-			</div>
+			</main>
 		</section>
 <%_ include partials/footer _%>

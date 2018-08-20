@@ -79,9 +79,10 @@ $(function() {
 	});
 
 	$(".delete-post").click(function(){
-		var id = {id: $(this).parent().data('id')};
+		var post = $(this).parent();
+		var id = {id: post.data('id')};
 		$.post('/admin/blog/post/delete', id, function(r,s) {
-			location.pathname = r;
+			location.reload();
 		});
 	})
 });

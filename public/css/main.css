@@ -47,8 +47,7 @@
 }
 
 .inner-body,
-section,
-.index {
+section {
 	width: 100%;
 	height: 100%;
 }
@@ -88,63 +87,76 @@ section,
 }
 
 .news.banner {
-	height: calc(100vh / 6)!important;
-}
-
-@media (min-width: 768px) {
-	.news.banner {
-		height: calc(100vh / 3)!important;
-	}
+	height: calc(100vh / 6);
 }
 
 .news.banner .carousel {
 	height: 100%;
 }
 
-.cinema.page .row {
+.cinema.page section,
+.cinema.page section .row {
 	height: auto;
 }
 
-.cinema.page .row > * {
-	height: calc(100vh / 3);
+.cinema.page section .row .col {
+	padding: 40px 0;
 }
 
-.cinema.page .centre {
-	padding: 50px 5px;
+.cinema.page section .row .col .centre {
+	position: static;
+	top: 0; left: 0;
+	transform: none;
 	text-align: center;
 }
 
 @media (min-width: 768px) {
-	.cinema.page .row {
-		height: calc(100% / 3);
+	.cinema.page section {
+		height: calc(100vh - (100vh / 6));
 	}
 
-	.cinema.page .row > * {
+	.cinema.page section .row {
+		height: 50%;
+	}
+
+	.cinema.page section .row .col {
 		height: 100%;
+		padding: 0;
+	}
+
+	.cinema.page section .row .col .centre {
+		position: relative;
+		top: 50%; left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }
 
-.library.page .blog {
+.library.page section,
+.studio.page section,
+.library.page main,
+.studio.page main {
 	min-height: 100%;
 }
 
-.library.page .blog .col {
-	min-height: 100%;
+.library.page .col,
+.studio.page .col {
+	height: auto;
 	padding: 0 1.5em;
 }
 
-.library.page .blog .blog-body {
-	padding-top: 1.5em;
+.library.page nav.col,
+.studio.page nav.col {
+	padding: 1.5em;
 }
 
-.library.page .blog .col.blog-nav {
-	height: auto;
+.library.page nav .link:not(:last-child),
+.studio.page nav .link:not(:last-child) {
 	padding-bottom: 1.5em;
 }
 
-.library.page .blog .link {
+.library.page .blog .blog-body,
+.studio.page section .studio-body {
 	padding-top: 1.5em;
-	text-align: center;
 }
 
 .library.page .blog .post {
@@ -173,8 +185,10 @@ section,
 }
 
 @media (min-width: 768px) {
-	.library.page .blog .col.blog-nav,
-	.library.page .blog .col.blog-body {
+	.library.page nav,
+	.library.page .blog .col.blog-body,
+	.studio.page nav,
+	.studio.page section .col {
 		min-height: 100%;
 	}
 }

@@ -22,8 +22,12 @@ router.get('/cinema', (req, res) => {
 	res.render('cinema', { page: 'cinema' });
 });
 
+router.get('/studio', (req, res) => {
+	res.render('studio', { page: 'studio' });
+});
+
 var isAdmin = (req, res, bool) => {
-	blog.find((err, posts) => {
+	blog.find().sort({created_at: -1}).exec((err, posts) => {
 		res.render('library', {
 			page: 'library',
 			posts: posts,
