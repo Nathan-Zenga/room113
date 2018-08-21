@@ -36,40 +36,6 @@ $(function() {
 		}, 500, "easeInOutExpo")
 	});
 
-	toggleOnScroll();
-
-	$(window).scroll(function(){
-		toggleOnScroll()
-	});
-
-	// Attach the 'fileselect' event to all file inputs on the page
-	$(document).on('change', ':file', function() {
-		var input = $(this);
-		var numFiles = input.get(0).files ? input.get(0).files.length : 1;
-		var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-		input.trigger('fileselect', [numFiles, label]);
-	});
-
-	// Watch for custom 'fileselect' event
-	$(':file').on('fileselect', function(event, numFiles, label) {
-		var text_input = $(this).parents('.input-group').find(':text');
-		var log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-		if( $(":file").val() ) {
-			$(".btn").css({width: "210px", height: "3em"});
-			$(".btn span").text("");
-		} else {
-			$(".btn").css({width: "", height: ""});
-			$(".btn span").text("or click here to upload");
-		}
-
-		if( text_input.length ) {
-			text_input.val(log);
-		} else {
-			if( log ) alert(log);
-		}
-	});
-
 	$("#newpost > .submit").click(function(e) {
 		e.preventDefault();
 		var data = {};
@@ -105,5 +71,39 @@ $(function() {
 		$.post('/studio/admin/post/submit', data, function(r,s) {
 			$(":file").val() ? $("#songUploader .submit").click() : location.pathname = r;
 		});
+	});
+
+	toggleOnScroll();
+
+	$(window).scroll(function() {
+		toggleOnScroll()
+	});
+
+	// Attach the 'fileselect' event to all file inputs on the page
+	$(document).on('change', ':file', function() {
+		var input = $(this);
+		var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+		var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [numFiles, label]);
+	});
+
+	// Watch for custom 'fileselect' event
+	$(':file').on('fileselect', function(event, numFiles, label) {
+		var text_input = $(this).parents('.input-group').find(':text');
+		var log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+		if( $(":file").val() ) {
+			$(".btn").css({width: "210px", height: "3em"});
+			$(".btn span").text("");
+		} else {
+			$(".btn").css({width: "", height: ""});
+			$(".btn span").text("or click here to upload");
+		}
+
+		if( text_input.length ) {
+			text_input.val(log);
+		} else {
+			if( log ) alert(log);
+		}
 	});
 });
