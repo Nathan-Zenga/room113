@@ -141,22 +141,12 @@ section {
 .library.page .col,
 .studio.page .col {
 	height: auto;
-	padding: 0 1.5em;
-}
-
-.library.page nav.col,
-.studio.page nav.col {
 	padding: 1.5em;
 }
 
 .library.page nav .link:not(:last-child),
 .studio.page nav .link:not(:last-child) {
 	padding-bottom: 1.5em;
-}
-
-.library.page .blog .blog-body,
-.studio.page section .studio-body {
-	padding-top: 1.5em;
 }
 
 .library.page .blog .post {

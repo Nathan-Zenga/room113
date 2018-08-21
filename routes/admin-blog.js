@@ -65,7 +65,7 @@ router.post('/delete', (req, res) => {
 
 	blog.findById(req.body.id, (err, post) => {
 		if (post.mediaList.length) {
-			clearMedia(gfs, post.mediaList, (err) => {
+			clearMedia(gfs, post.mediaList, 'post_media', (err) => {
 				if (err) return err;
 				deleting();
 			});

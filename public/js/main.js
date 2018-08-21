@@ -42,7 +42,7 @@ $(function() {
 		toggleOnScroll()
 	});
 
-	// We can attach the `fileselect` event to all file inputs on the page
+	// Attach the 'fileselect' event to all file inputs on the page
 	$(document).on('change', ':file', function() {
 		var input = $(this);
 		var numFiles = input.get(0).files ? input.get(0).files.length : 1;
@@ -50,13 +50,13 @@ $(function() {
 		input.trigger('fileselect', [numFiles, label]);
 	});
 
-	// We can watch for our custom `fileselect` event like this
+	// Watch for custom 'fileselect' event
 	$(':file').on('fileselect', function(event, numFiles, label) {
-		var input = $(this).parents('.input-group').find(':text');
+		var text_input = $(this).parents('.input-group').find(':text');
 		var log = numFiles > 1 ? numFiles + ' files selected' : label;
 
-		if( input.length ) {
-			input.val(log);
+		if( text_input.length ) {
+			text_input.val(log);
 		} else {
 			if( log ) alert(log);
 		}
@@ -64,17 +64,15 @@ $(function() {
 
 	$("#newpost > .submit").click(function(e) {
 		e.preventDefault();
-
-		var $details = $("#newpost .details");
 		var data = {};
 
-		$details.each(function() {
+		$("#newpost .details").each(function() {
 			var key = $(this).attr('name');
 			data[key] = $(this).val();
 		});
 
 		$.post('/admin/blog/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
+			$(":file").val() ? $("#uploader .submit").click() : location.reload();
 		});
 	});
 
@@ -84,5 +82,20 @@ $(function() {
 		$.post('/admin/blog/post/delete', id, function(r,s) {
 			location.reload();
 		});
-	})
+	});
+
+
+	$("#songInfo").parent().children(".submit").click(function(e) {
+		e.preventDefault();
+		var data = {};
+
+		$("#songInfo .details").each(function() {
+			var key = $(this).attr('name');
+			data[key] = $(this).val();
+		});
+
+		$.post('/admin/studio/post/submit', data, function(r,s) {
+			$(":file").val() ? $("#songUploader .submit").click() : location.reload();
+		});
+	});
 });

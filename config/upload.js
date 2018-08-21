@@ -1,9 +1,18 @@
+const mongoose = require('mongoose');
 const multer = require('multer');
+const Grid = require('gridfs-stream');
 const GridFsStorage = require('multer-gridfs-storage');
 const path = require('path');
 const crypto = require('crypto');
 const config = require('./config');
-const blog = require('../models/blogpost');
+
+let conn = mongoose.connection;
+
+let gfs;
+conn.once('open', function() {
+	gfs = Grid(conn.db, mongoose.mongo);
+});
+// ===================================================
 
 // Set The Storage Engine
 const storage = new GridFsStorage({
@@ -12,10 +21,26 @@ const storage = new GridFsStorage({
 		return new Promise((resolve, reject) => {
 			crypto.randomBytes(16, (err, buf) => {
 				if (err) return reject(err);
-				resolve({
-					filename: buf.toString('hex') + path.extname(file.originalname),
-					bucketName: 'post_media'
-				});
+				var collection = /audio/.test(file.mimetype) ? 'studio_media' : 'post_media';
+				gfs.collection(collection);
+
+				var lastly = () => {
+					resolve({
+						filename: buf.toString('hex') + path.extname(file.originalname),
+						bucketName: collection
+					});
+				}
+
+				if (collection === 'studio_media') {
+					gfs.files.find((err, files) => {
+						gfs.remove({_id: files[0]._id, root: 'studio_media'}, (err, gridStore) => {
+							if (err) return err;
+							lastly()
+						})
+					})
+				} else {
+					lastly()
+				}
 			});
 		});
 	}

@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var Grid = require('gridfs-stream');
 var blog = require('../models/blogpost');
+var studiopost = require('../models/studiopost');
 
 let conn = mongoose.connection;
 
@@ -22,14 +23,10 @@ router.get('/cinema', (req, res) => {
 	res.render('cinema', { page: 'cinema' });
 });
 
-router.get('/studio', (req, res) => {
-	res.render('studio', { page: 'studio' });
-});
-
-var isAdmin = (req, res, bool) => {
-	blog.find().sort({created_at: -1}).exec((err, posts) => {
-		res.render('library', {
-			page: 'library',
+var isAdmin = (res, coll, page, bool) => {
+	coll.find().sort({created_at: -1}).exec((err, posts) => {
+		res.render(page, {
+			page: page,
 			posts: posts,
 			admin: bool
 		})
@@ -37,33 +34,34 @@ var isAdmin = (req, res, bool) => {
 }
 
 router.get('/library', (req, res) => {
-	isAdmin(req, res, false);
+	isAdmin(res, blog, 'library', false);
 });
 
 router.get('/admin/library', (req, res) => {
-	isAdmin(req, res, true);
+	isAdmin(res, blog, 'library', true);
 });
 
-// Display profile icon
+router.get('/studio', (req, res) => {
+	isAdmin(res, studiopost, 'studio', false);
+});
+
+router.get('/admin/studio', (req, res) => {
+	isAdmin(res, studiopost, 'studio', true);
+});
+
+// Display stored media files
 router.get('/media/:filename', (req, res) => {
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-		// Check if file
+		// Check if file exists
 		if (!file || file.length === 0) {
 			return res.status(404).json({
-				err: 'Icon does not exist'
+				err: 'File does not exist'
 			});
 		}
 
-		// Check if image
-		if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-			// Read output to browser
-			const readstream = gfs.createReadStream(file.filename);
-			readstream.pipe(res);
-		} else {
-			res.status(404).json({
-				err: 'Not an image'
-			});
-		}
+		// Read output to browser
+		const readstream = gfs.createReadStream(file.filename);
+		readstream.pipe(res);
 	});
 });
 

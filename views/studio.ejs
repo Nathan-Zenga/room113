@@ -7,9 +7,55 @@
 				<div class="row link" id="playlists">Playlists</div>
 			</nav>
 			<main class="col-sm-9 col">
-				<div class="studio-body">
-					content
-				</div>
+				<%_ if (admin) { _%>
+					<div class="form-group form-container" style="position: relative; max-width: 500px; left: 50%; transform: translateX(-50%);">
+						<form id="songInfo">
+							<fieldset>
+								<label class="sr-only">Title</label>
+								<input class="form-control details" style="margin-bottom: 1em" type="text" id="title" name="title" placeholder="Song Title">
+
+								<label class="sr-only">Artist</label>
+								<input class="form-control details" style="margin-bottom: 1em" type="text" id="artist" name="artist" placeholder="Artist Name">
+
+								<label class="sr-only">Description</label>
+								<textarea class="form-control details" style="margin-bottom: 1em" type="text" id="description" name="description" placeholder="Description"></textarea>
+							</fieldset>
+						</form>
+
+						<label class="sr-only">Upload Music</label>
+						<form id="songUploader" style="margin-bottom: 1em" method="post" action="/admin/studio/upload/media" enctype="multipart/form-data">
+							<fieldset>
+								<input class="form-control details" style="float: left; width: calc(50% - .5em); margin-right: 1em" type="text" id="ref" name="ref" placeholder="URL Link">
+								<div class="input-group" style="width: calc(50% - .5em)">
+									<label class="input-group-btn" style="position: absolute; z-index: 10; color: black;">
+										<span class="btn">
+											or click here to upload <input type="file" name="song" style="display: none;">
+										</span>
+									</label>
+									<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
+								</div>
+								<input class="form-control submit" type="submit" style="display: none" value="Post">
+							</fieldset>
+						</form>
+						<label class="sr-only">POST</label>
+
+						<input class="form-control submit" type="submit" value="Post">
+					</div>
+				<%_ } else { _%>
+					<div class="studio-body" style="text-align: center;">
+						<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0">Song of the Week</h2></div>
+						<div class="row" id="artwork" style="margin-bottom: 1em"><img style="background-color: green; width: 10px; height: 10px" src=""></div>
+						<div class="row" id="music-player" style="margin-bottom: 1em"><audio controls><source src="/media/aaa.mp3" type="audio/mpeg"></audio></div>
+						<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0">Title</h3></div>
+						<div class="row" id="song-artist" style="margin-bottom: 1em"><p>Artist</p></div>
+						<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+					</div>
+				<%_ } _%>
 			</main>
 		</section>
 <%_ include partials/footer _%>
