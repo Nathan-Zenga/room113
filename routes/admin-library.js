@@ -16,12 +16,13 @@ conn.once('open', function() {
 // ===================================================
 
 router.get('/', (req, res) => {
-	res.render('admin_newpost', {
-		page: 'library admin'
+	res.render('admin-library', {
+		page: 'library admin',
+		admin: true
 	});
 });
 
-router.post('/submit', (req, res) => {
+router.post('/blog/post/submit', (req, res) => {
 	var newPost = new blog({
 		title: req.body.title,
 		subtitle: req.body.subtitle,
@@ -34,7 +35,7 @@ router.post('/submit', (req, res) => {
 	});
 });
 
-router.post('/media/upload', (req, res) => {
+router.post('/blog/post/media/upload', (req, res) => {
 	var image = upload.single('img'); // fieldname
 	// new upload process
 	image(req, res, err => {
@@ -55,7 +56,7 @@ router.post('/media/upload', (req, res) => {
 	});
 });
 
-router.post('/delete', (req, res) => {
+router.post('/blog/post/delete', (req, res) => {
 	var deleting = () => {
 		blog.deleteOne({ _id: req.body.id }, (err, result) => {
 			if (err) return err;

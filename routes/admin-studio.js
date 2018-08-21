@@ -3,7 +3,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Grid = require('gridfs-stream');
 var upload = require('../config/upload');
-var clearMedia = require('../config/config').clearMedia;
 var studiopost = require('../models/studiopost');
 
 let conn = mongoose.connection;
@@ -15,30 +14,39 @@ conn.once('open', function() {
 });
 // ===================================================
 
-route.post('/post/submit', (req, res) => {
+router.get('/', (req, res) => {
+	res.render('studio', {
+		page: 'studio admin',
+		admin: true
+	});
+});
+
+router.post('/post/submit', (req, res) => {
 	studiopost.find((err, posts) => {
-		if (!posts || !posts.length) {
+		if (posts && posts.length) {
+			posts[0].title = req.body.title;
+			posts[0].artist = req.body.artist;
+			posts[0].description = req.body.description;
+			posts[0].song = req.body.url;
+			posts[0].save(err => {
+				if (err) return err;
+			});
+		} else {
 			var newPost = new studiopost({
 				title: req.body.title,
 				artist: req.body.artist,
-				description: req.body.description
+				description: req.body.description,
+				song: req.body.url
 			});
 			newPost.save(err => {
 				if (err) throw err;
 			});
-		} else {
-			posts[0].title = req.body.title;
-			posts[0].artist = req.body.artist;
-			posts[0].description = req.body.description;
-			posts[0].save(err => {
-				if (err) return err;
-			});
 		}
-		res.send('done')
+		res.send('/studio')
 	})
 });
 
-route.post('/upload/media', (req, res) => {
+router.post('/upload/song', (req, res) => {
 	var image = upload.single('song');
 	// new upload process
 	image(req, res, err => {
@@ -47,15 +55,18 @@ route.post('/upload/media', (req, res) => {
 			return res.redirect(req.get('referer'));
 		}
 		gfs.files.find().sort({uploadDate: -1}).toArray((err, songs) => {
-			var song = songs[0].filename;
-			var songToDelete = songs[1].filename;
+			var file = songs[0].filename;
+			var songToDelete = songs[1] ? songs[1].filename : undefined;
 			studiopost.find((err, posts) => {
-				posts[0].ref.push(song);
+				posts[0].song = file;
 				posts[0].save(err => {
 					if (err) return err;
-					gfs.remove({filename: songToDelete}, (err, gridStore) => {
-						res.redirect(req.get('referer'));
-					})
+					if (songToDelete) {
+						gfs.remove({filename: songToDelete, root: 'studio_media'}, (err, gridStore) => {
+							if (err) return err;
+							res.redirect('/studio');
+						})
+					}
 				});
 			});
 		});

@@ -174,12 +174,20 @@ section {
 	height: 100%;
 }
 
+.studio.page nav {
+	text-align: center;
+}
+
 @media (min-width: 768px) {
 	.library.page nav,
 	.library.page .blog .col.blog-body,
 	.studio.page nav,
 	.studio.page section .col {
 		min-height: 100%;
+	}
+
+	.studio.page nav {
+		text-align: left;
 	}
 }
 
@@ -202,4 +210,14 @@ section {
 
 .library.page.admin .inner-body {
 	background-color: grey;
+}
+
+.studio-body audio {
+	width: 100%;
+}
+
+@media (min-height: 768px) {
+	.studio-body audio {
+		width: 300px;
+	}
 }

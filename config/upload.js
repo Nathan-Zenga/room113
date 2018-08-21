@@ -22,25 +22,13 @@ const storage = new GridFsStorage({
 			crypto.randomBytes(16, (err, buf) => {
 				if (err) return reject(err);
 				var collection = /audio/.test(file.mimetype) ? 'studio_media' : 'post_media';
+				var filename = collection == 'studio_media' ? file.originalname : buf.toString('hex') + path.extname(file.originalname);
 				gfs.collection(collection);
 
-				var lastly = () => {
-					resolve({
-						filename: buf.toString('hex') + path.extname(file.originalname),
-						bucketName: collection
-					});
-				}
-
-				if (collection === 'studio_media') {
-					gfs.files.find((err, files) => {
-						gfs.remove({_id: files[0]._id, root: 'studio_media'}, (err, gridStore) => {
-							if (err) return err;
-							lastly()
-						})
-					})
-				} else {
-					lastly()
-				}
+				resolve({
+					filename: filename,
+					bucketName: collection
+				});
 			});
 		});
 	}
@@ -57,7 +45,7 @@ const upload = multer({
 // Check File Type
 function checkFileType(file, cb){
 	// Allowed ext
-	const filetypes = /jpeg|jpg|png/;
+	const filetypes = /jpeg|jpg|png|mp3/;
 	// Check ext
 	const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 	// Check mime
@@ -66,7 +54,7 @@ function checkFileType(file, cb){
 	if (mimetype && extname) {
 		return cb(null,true)
 	} else {
-		cb('Error: Images Only!')
+		cb('Error: Images / Music Only!')
 	}
 }
 

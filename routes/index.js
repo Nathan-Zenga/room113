@@ -23,34 +23,30 @@ router.get('/cinema', (req, res) => {
 	res.render('cinema', { page: 'cinema' });
 });
 
-var isAdmin = (res, coll, page, bool) => {
-	coll.find().sort({created_at: -1}).exec((err, posts) => {
-		res.render(page, {
-			page: page,
+router.get('/library', (req, res) => {
+	blog.find().sort({created_at: -1}).exec((err, posts) => {
+		res.render('library', {
+			page: 'library',
 			posts: posts,
-			admin: bool
+			admin: false
 		})
 	})
-}
-
-router.get('/library', (req, res) => {
-	isAdmin(res, blog, 'library', false);
-});
-
-router.get('/admin/library', (req, res) => {
-	isAdmin(res, blog, 'library', true);
 });
 
 router.get('/studio', (req, res) => {
-	isAdmin(res, studiopost, 'studio', false);
-});
-
-router.get('/admin/studio', (req, res) => {
-	isAdmin(res, studiopost, 'studio', true);
+	studiopost.find().sort({created_at: -1}).exec((err, posts) => {
+		res.render('studio', {
+			page: 'studio',
+			posts: posts,
+			admin: false
+		})
+	})
 });
 
 // Display stored media files
 router.get('/media/:filename', (req, res) => {
+	if (/mp3/.test(req.path)) gfs.collection('studio_media');
+
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file exists
 		if (!file || file.length === 0) {

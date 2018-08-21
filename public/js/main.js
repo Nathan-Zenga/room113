@@ -55,6 +55,14 @@ $(function() {
 		var text_input = $(this).parents('.input-group').find(':text');
 		var log = numFiles > 1 ? numFiles + ' files selected' : label;
 
+		if( $(":file").val() ) {
+			$(".btn").css({width: "210px", height: "3em"});
+			$(".btn span").text("");
+		} else {
+			$(".btn").css({width: "", height: ""});
+			$(".btn span").text("or click here to upload");
+		}
+
 		if( text_input.length ) {
 			text_input.val(log);
 		} else {
@@ -71,7 +79,7 @@ $(function() {
 			data[key] = $(this).val();
 		});
 
-		$.post('/admin/blog/post/submit', data, function(r,s) {
+		$.post('/library/admin/blog/post/submit', data, function(r,s) {
 			$(":file").val() ? $("#uploader .submit").click() : location.reload();
 		});
 	});
@@ -79,7 +87,7 @@ $(function() {
 	$(".delete-post").click(function(){
 		var post = $(this).parent();
 		var id = {id: post.data('id')};
-		$.post('/admin/blog/post/delete', id, function(r,s) {
+		$.post('/library/admin/blog/post/delete', id, function(r,s) {
 			location.reload();
 		});
 	});
@@ -94,8 +102,8 @@ $(function() {
 			data[key] = $(this).val();
 		});
 
-		$.post('/admin/studio/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#songUploader .submit").click() : location.reload();
+		$.post('/studio/admin/post/submit', data, function(r,s) {
+			$(":file").val() ? $("#songUploader .submit").click() : location.pathname = r;
 		});
 	});
 });
