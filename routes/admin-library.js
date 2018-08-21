@@ -16,6 +16,16 @@ conn.once('open', function() {
 // ===================================================
 
 router.get('/', (req, res) => {
+	blog.find().sort({created_at: -1}).exec((err, posts) => {
+		res.render('library', {
+			page: 'library',
+			posts: posts,
+			admin: true
+		})
+	})
+});
+
+router.get('/blog/post', (req, res) => {
 	res.render('admin-library', {
 		page: 'library admin',
 		admin: true

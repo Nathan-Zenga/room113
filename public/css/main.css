@@ -171,7 +171,8 @@ section {
 }
 
 .library.page .blog .post-main-img img {
-	height: 100%;
+	height: auto;
+	width: 100%;
 }
 
 .studio.page nav {
@@ -188,6 +189,11 @@ section {
 
 	.studio.page nav {
 		text-align: left;
+	}
+
+	.library.page .blog .post-main-img img {
+		width: auto;
+		height: 100%;
 	}
 }
 

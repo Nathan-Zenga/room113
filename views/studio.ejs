@@ -47,11 +47,13 @@
 					<div class="studio-body" style="text-align: center;">
 						<%_ if (posts && posts.length) { _%>
 							<%_ posts.forEach(post => { _%>
-								<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0">Song of the Week</h2></div>
+								<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
 								<%_ var artwork = post.artwork ? '/media/' + post.artwork : '/img/cd.png' _%>
 								<div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="<%= artwork %>"></div>
-								<%_ var song = /http/.test(post.song) ? post.song : '/media/' + post.song _%>
-								<div class="row" id="music-player" style="margin-bottom: 1em"><audio style="max-width: 300px" src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio></div>
+								<%_ if (post.song) { _%>
+									<%_ var song = /http/.test(post.song) ? post.song : '/media/' + post.song _%>
+									<div class="row" id="music-player" style="margin-bottom: 1em"><audio style="max-width: 300px" src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio></div>
+								<%_ } _%>
 								<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0"><%= post.title %></h3></div>
 								<div class="row" id="song-artist" style="margin-bottom: 1em"><p><%= post.artist %></p></div>
 								<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;"><%= post.description %></div>
