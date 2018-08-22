@@ -23,6 +23,10 @@ router.get('/cinema', (req, res) => {
 	res.render('cinema', { page: 'cinema' });
 });
 
+router.get('/surgery', (req, res) => {
+	res.render('surgery', { page: 'surgery' });
+});
+
 router.get('/library', (req, res) => {
 	blog.find().sort({created_at: -1}).exec((err, posts) => {
 		res.render('library', {

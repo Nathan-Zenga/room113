@@ -131,10 +131,8 @@ section {
 	}
 }
 
-.library.page section,
-.studio.page section,
-.library.page main,
-.studio.page main {
+.page:not(.home) section,
+.page:not(.home) main {
 	min-height: 100%;
 }
 
@@ -143,14 +141,12 @@ section {
 	height: 100%;
 }
 
-.library.page .col,
-.studio.page .col {
+.page:not(.home) .col {
 	height: auto;
 	padding: 1.5em;
 }
 
-.library.page nav .link:not(:last-child),
-.studio.page nav .link:not(:last-child) {
+.page:not(.home) nav .link:not(:last-child) {
 	padding-bottom: 1.5em;
 }
 
