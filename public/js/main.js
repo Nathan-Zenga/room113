@@ -16,6 +16,18 @@ $(function() {
 		} else {
 			$("#toTop").fadeOut()
 		}
+
+		if (window.pageYOffset > $("nav").offset().top) {
+			$(".inner-nav").css({
+				position: "fixed",
+				top: "0",
+				left: "0",
+				padding: $("nav").css("padding"),
+				width: $("nav").css("width")
+			});
+		} else {
+			$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
+		}
 	};
 
 	$(".index").css("background-color", randomColour());

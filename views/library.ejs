@@ -2,7 +2,7 @@
 		<%_ include partials/news_banner _%>
 		<section class="blog">
 			<%_ if (posts && posts.length) { _%>
-				<nav class="col-sm-3 col blog-nav">
+				<nav class="col-sm-2 col blog-nav">
 					<div class="inner-nav">
 						<%_ posts.forEach(post => { _%>
 							<div class="row link title" id="<%= post._id %>"><a><div><%= post.title %></div></a></div>
@@ -10,7 +10,7 @@
 					</div>
 				</nav>
 			<%_ } _%>
-			<main class="col-sm-<%= posts && posts.length ? 9 : 12 %> col blog-container">
+			<main class="col-sm-<%= posts && posts.length ? 10 : 12 %> col blog-container">
 				<div class="blog-body">
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach(post => { _%>
