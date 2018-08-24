@@ -227,7 +227,18 @@ section {
 	width: 100%;
 }
 
-@media (min-height: 768px) {
+.studio-body iframe.yt {
+	width: 100%;
+	height: 350px;
+}
+
+@media (min-width: 700px) {
+	.studio-body iframe.yt {
+		width: 700px;
+	}
+}
+
+@media (min-width: 768px) {
 	.studio-body audio {
 		width: 300px;
 	}

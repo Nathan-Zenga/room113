@@ -51,17 +51,20 @@
 							<%_ posts.forEach(post => { _%>
 								<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
 								<%_ var artwork = post.artwork ? '/media/' + post.artwork : '/img/cd.png' _%>
-								<%_ if (!/soundcloud/.test(post.song)) { _%><div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="<%= artwork %>"></div><%_ } _%>
+								<%_ if (!/soundcloud|youtu/.test(post.song)) { _%><div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="<%= artwork %>"></div><%_ } _%>
 								<%_ if (post.song) { _%>
 									<%_ var start = post.song.indexOf('http'); _%>
 									<%_ var end = post.song.indexOf('"><'); _%>
 									<%_ var songSC = post.song.slice(start, end); _%>
-									<%_ var song = /soundcloud/.test(post.song) ? song = songSC : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
+									<%_ var songYT = post.song.slice(-11); _%>
+									<%_ var song = /soundcloud/.test(post.song) ? songSC : /youtu/.test(post.song) ? songYT : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
 									<div class="row" id="music-player" style="margin-bottom: 1em">
-									<%_ if (song === songSC) { _%>
-										<iframe width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
+									<%_ if (song == songSC) { _%>
+										<iframe class="sc" width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
+									<%_ } else if (song == songYT) { _%>
+										<iframe class="yt" scrolling="no" frameborder="no" allow="autoplay" src="https://www.youtube.com/embed/<%= song %>?rel=0&amp;showinfo=0"></iframe>
 									<%_ } else { _%>
-										<audio style="max-width: 300px" src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
+										<audio src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
 									<%_ } _%>
 									</div>
 								<%_ } _%>
