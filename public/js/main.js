@@ -17,16 +17,20 @@ $(function() {
 			$("#toTop").fadeOut()
 		}
 
-		if (window.pageYOffset > $("nav").offset().top) {
-			$(".inner-nav").css({
-				position: "fixed",
-				top: "0",
-				left: "0",
-				padding: $("nav").css("padding"),
-				width: $("nav").css("width")
-			});
-		} else {
-			$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
+		try {
+			if (window.pageYOffset > $("nav").offset().top) {
+				$(".inner-nav").css({
+					position: "fixed",
+					top: "0",
+					left: "0",
+					padding: $("nav").css("padding"),
+					width: $("nav").css("width")
+				});
+			} else {
+				$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
+			}
+		} catch(err) {
+			console.log(err)
 		}
 	};
 
@@ -87,9 +91,7 @@ $(function() {
 
 	toggleOnScroll();
 
-	$(window).scroll(function() {
-		toggleOnScroll()
-	});
+	$(window).scroll(toggleOnScroll);
 
 	// Attach the 'fileselect' event to all file inputs on the page
 	$(document).on('change', ':file', function() {
