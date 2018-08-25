@@ -3,6 +3,7 @@
 		<section class="blog">
 			<%_ if (posts && posts.length) { _%>
 				<nav class="col-sm-2 col blog-nav">
+				<div class="row nav-menu"><i class="fas fa-bars"></i></div>
 					<div class="inner-nav">
 						<%_ posts.forEach(post => { _%>
 							<div class="row link title" id="<%= post._id %>"><a><div><%= post.title %></div></a></div>

@@ -52,6 +52,12 @@ $(function() {
 		}, 500, "easeInOutExpo")
 	});
 
+	$(".nav-menu").click(function() {
+		$(".inner-nav").stop().slideToggle(200, function(){
+			if ($(this).css("display") == 'none') $(this).css("display", "")
+		});
+	});
+
 	$("#newpost > .submit").click(function(e) {
 		e.preventDefault();
 		var data = {};

@@ -150,6 +150,30 @@ section {
 	padding-bottom: 1.5em;
 }
 
+nav {
+	text-align: center;
+}
+
+nav .inner-nav {
+	margin-top: 1.5em;
+	display: none;
+}
+
+@media (min-width: 768px) {
+	nav {
+		text-align: left;
+	}
+
+	nav .inner-nav {
+		margin-top: 0;
+		display: block;
+	}
+
+	nav .nav-menu {
+		display: none;
+	}
+}
+
 .library.page .blog .post {
 	padding-bottom: 3em;
 }
@@ -176,20 +200,12 @@ section {
 	width: 100%;
 }
 
-.studio.page nav {
-	text-align: center;
-}
-
 @media (min-width: 768px) {
 	.library.page nav,
 	.library.page .blog .col.blog-body,
 	.studio.page nav,
 	.studio.page section .col {
 		min-height: 100%;
-	}
-
-	.studio.page nav {
-		text-align: left;
 	}
 
 	.library.page .blog .post .post-main-img {
