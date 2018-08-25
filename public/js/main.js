@@ -18,7 +18,7 @@ $(function() {
 		}
 
 		try {
-			if (window.pageYOffset > $("nav").offset().top) {
+			if (window.innerWidth >= 768 && window.pageYOffset > $("nav").offset().top) {
 				$(".inner-nav").css({
 					position: "fixed",
 					top: "0",
@@ -62,7 +62,7 @@ $(function() {
 		});
 
 		$.post('/library/admin/blog/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#uploader .submit").click() : location.reload();
+			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
 		});
 	});
 
@@ -105,13 +105,14 @@ $(function() {
 	$(':file').on('fileselect', function(event, numFiles, label) {
 		var text_input = $(this).parents('.input-group').find(':text');
 		var log = numFiles > 1 ? numFiles + ' files selected' : label;
+		var txt = $(".btn span").text();
 
 		if( $(":file").val() ) {
 			$(".btn").css({width: "210px", height: "3em"});
 			$(".btn span").text("");
 		} else {
 			$(".btn").css({width: "", height: ""});
-			$(".btn span").text("or click here to upload");
+			$(".btn span").text(txt);
 		}
 
 		if( text_input.length ) {
@@ -120,4 +121,6 @@ $(function() {
 			if( log ) alert(log);
 		}
 	});
+
+	$(":file").trigger('fileselect');
 });

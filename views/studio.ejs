@@ -9,72 +9,82 @@
 				</div>
 			</nav>
 			<main class="col-sm-10 col">
-				<%_ if (admin) { _%>
-					<div class="form-group form-container" style="position: relative; max-width: 500px; left: 50%; transform: translateX(-50%);">
-						<form id="songInfo">
-							<fieldset>
-								<label class="sr-only">Title</label>
-								<input class="form-control details" style="margin-bottom: 1em" type="text" id="title" name="title" placeholder="Song Title">
+			<%_ if (admin) { _%>
+				<div class="form-group form-container" style="position: relative; max-width: 500px; left: 50%; transform: translateX(-50%);">
+					<form id="songInfo">
+						<fieldset>
+							<label class="sr-only">Title</label>
+							<input class="form-control details" style="margin-bottom: 1em" type="text" id="title" name="title" placeholder="Song Title">
 
-								<label class="sr-only">Artist</label>
-								<input class="form-control details" style="margin-bottom: 1em" type="text" id="artist" name="artist" placeholder="Artist Name">
+							<label class="sr-only">Artist</label>
+							<input class="form-control details" style="margin-bottom: 1em" type="text" id="artist" name="artist" placeholder="Artist Name">
 
-								<label class="sr-only">Description</label>
-								<textarea class="form-control details" style="margin-bottom: 1em" type="text" id="description" name="description" placeholder="Description"></textarea>
+							<label class="sr-only">Description</label>
+							<textarea class="form-control details" style="margin-bottom: 1em" type="text" id="description" name="description" placeholder="Description"></textarea>
 
-								<label class="sr-only">Song URL</label>
-								<input class="form-control details" style="margin-bottom: 1em" type="text" id="url" name="url" placeholder="URL Link">
-							</fieldset>
-						</form>
+							<label class="sr-only">Song URL</label>
+							<input class="form-control details" style="margin-bottom: 1em" type="text" id="url" name="url" placeholder="URL Link">
+						</fieldset>
+					</form>
 
-						<label class="sr-only">Upload Song File</label>
-						<form id="songUploader" style="margin-bottom: 1em" method="post" action="/studio/admin/upload/song" enctype="multipart/form-data">
-							<fieldset>
-								<div class="input-group" style="width: 100%">
-									<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%"">
-										<span class="btn" style="width: 100%"">
-											<span>or click here to upload</span> <input type="file" name="song" style="display: none;">
-										</span>
-									</label>
-									<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
-								</div>
-								<input class="form-control submit" type="submit" style="display: none" value="Post">
-							</fieldset>
-						</form>
-						<label class="sr-only">POST</label>
+					<label class="sr-only">Upload Song File</label>
+					<form id="songUploader" style="margin-bottom: 1em" method="post" action="/studio/admin/upload/song" enctype="multipart/form-data">
+						<fieldset>
+							<div class="input-group" style="width: 100%">
+								<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
+									<span class="btn" style="width: 100%; text-align: left;">
+										<span>Or click here to upload</span> <input type="file" name="song" style="display: none;">
+									</span>
+								</label>
+								<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
+							</div>
+							<input class="form-control submit" type="submit" style="display: none" value="Post">
+						</fieldset>
+					</form>
+					<label class="sr-only">POST</label>
 
-						<input class="form-control submit" type="submit" value="Post">
-					</div>
-				<%_ } else { _%>
-					<div class="studio-body" style="text-align: center;">
-						<%_ if (posts && posts.length) { _%>
-							<%_ posts.forEach(post => { _%>
-								<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
-								<%_ var artwork = post.artwork ? '/media/' + post.artwork : '/img/cd.png' _%>
-								<%_ if (!/soundcloud|youtu/.test(post.song)) { _%><div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="<%= artwork %>"></div><%_ } _%>
-								<%_ if (post.song) { _%>
-									<%_ var start = post.song.indexOf('http'); _%>
-									<%_ var end = post.song.indexOf('"><'); _%>
-									<%_ var songSC = post.song.slice(start, end); _%>
-									<%_ var songYT = post.song.slice(-11); _%>
-									<%_ var song = /soundcloud/.test(post.song) ? songSC : /youtu/.test(post.song) ? songYT : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
-									<div class="row" id="music-player" style="margin-bottom: 1em">
-									<%_ if (song == songSC) { _%>
-										<iframe class="sc" width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
-									<%_ } else if (song == songYT) { _%>
-										<iframe class="yt" scrolling="no" frameborder="no" allow="autoplay" src="https://www.youtube.com/embed/<%= song %>?rel=0&amp;showinfo=0"></iframe>
-									<%_ } else { _%>
-										<audio src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
-									<%_ } _%>
-									</div>
-								<%_ } _%>
-								<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0"><%= post.title %></h3></div>
-								<div class="row" id="song-artist" style="margin-bottom: 1em"><p><%= post.artist %></p></div>
-								<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;"><%= post.description %></div>
-							<%_ }) _%>
+					<input class="form-control submit" type="submit" value="Post">
+				</div>
+			<%_ } else { _%>
+				<div class="studio-body" style="text-align: center;">
+				<%_ if (posts && posts.length) { _%>
+					<%_ posts.forEach(post => { _%>
+						<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
+						<%_ var artwork = post.artwork ? '/media/' + post.artwork : '/img/cd.png' _%>
+						<%_ if (!/soundcloud|youtu/.test(post.song)) { _%><div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="<%= artwork %>"></div><%_ } _%>
+						<%_ if (post.song) { _%>
+							<%_ var start = post.song.indexOf('http'); _%>
+							<%_ var end = post.song.indexOf('"><'); _%>
+							<%_ var songSC = post.song.slice(start, end); _%>
+							<%_ var songYT = post.song.slice(-11); _%>
+							<%_ var song = /soundcloud/.test(post.song) ? songSC : /youtu/.test(post.song) ? songYT : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
+							<div class="row" id="music-player" style="margin-bottom: 1em">
+							<%_ if (song == songSC) { _%>
+								<iframe class="sc" width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
+							<%_ } else if (song == songYT) { _%>
+								<iframe class="yt" scrolling="no" frameborder="no" allow="autoplay" src="https://www.youtube.com/embed/<%= song %>?rel=0&amp;showinfo=0"></iframe>
+							<%_ } else { _%>
+								<audio src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
+							<%_ } _%>
+							</div>
 						<%_ } _%>
-					</div>
+						<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0"><%= post.title %></h3></div>
+						<div class="row" id="song-artist" style="margin-bottom: 1em"><p><%= post.artist %></p></div>
+						<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;">
+						<%_ if (post.description.includes('\n')) { _%>
+							<%_ let lines = post.description.split('\n') _%>
+							<%_ lines.forEach((line, i) => { _%>
+								<%= line %>
+								<%_ if (i !== lines.length-1) { _%><br><%_ } _%>
+							<%_ }) _%>
+						<%_ } else { _%>
+							<%= post.description %>
+						<%_ } _%>
+						</div>
+					<%_ }) _%>
 				<%_ } _%>
+				</div>
+			<%_ } _%>
 			</main>
 		</section>
 <%_ include partials/footer _%>
