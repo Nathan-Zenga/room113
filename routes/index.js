@@ -11,7 +11,6 @@ let conn = mongoose.connection;
 let gfs;
 conn.once('open', function() {
 	gfs = Grid(conn.db, mongoose.mongo);
-	gfs.collection('post_media');
 });
 // ===================================================
 
@@ -49,7 +48,7 @@ router.get('/studio', (req, res) => {
 
 // Display stored media files
 router.get('/media/:filename', (req, res) => {
-	if (/mp3/.test(req.path)) gfs.collection('studio_media');
+	gfs.collection((/song|artwork/.test(req.originalUrl) ? 'studio_media' : 'post_media'));
 
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file exists

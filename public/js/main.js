@@ -85,13 +85,19 @@ $(function() {
 		});
 
 		$.post('/studio/admin/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#songUploader .submit").click() : location.pathname = r;
+			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
 		});
 	});
 
 	toggleOnScroll();
 
 	$(window).scroll(toggleOnScroll);
+
+	$(":file").val("").each(function(){
+		var txt = $(this).parent().find("span").text();
+		$(this).parent().find("span").text(txt);
+		$(":text").text('');
+	});
 
 	// Attach the 'fileselect' event to all file inputs on the page
 	$(document).on('change', ':file', function() {
@@ -105,14 +111,14 @@ $(function() {
 	$(':file').on('fileselect', function(event, numFiles, label) {
 		var text_input = $(this).parents('.input-group').find(':text');
 		var log = numFiles > 1 ? numFiles + ' files selected' : label;
-		var txt = $(".btn span").text();
+		var txt = $(this).parent().find("span").text();
 
-		if( $(":file").val() ) {
-			$(".btn").css({width: "210px", height: "3em"});
-			$(".btn span").text("");
+		if( $(this).val() ) {
+			$(".btn").css({height: "3em"});
+			$(this).parent().find("span").text("");
 		} else {
-			$(".btn").css({width: "", height: ""});
-			$(".btn span").text(txt);
+			$(".btn").css({height: ""});
+			$(this).parent().find("span").text(txt);
 		}
 
 		if( text_input.length ) {
@@ -121,6 +127,4 @@ $(function() {
 			if( log ) alert(log);
 		}
 	});
-
-	$(":file").trigger('fileselect');
 });

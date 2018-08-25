@@ -38,36 +38,28 @@ router.post('/post/submit', (req, res) => {
 				description: req.body.description,
 				song: req.body.url
 			});
-			newPost.save(err => {
-				if (err) throw err;
-			});
+			newPost.save(err => { if (err) throw err });
 		}
 		res.send('/studio')
 	})
 });
 
-router.post('/upload/song', (req, res) => {
-	var image = upload.single('song');
+router.post('/media/upload', (req, res) => {
+	var up = upload.fields([{name: 'song'}, {name: 'artwork'}]);
 	// new upload process
-	image(req, res, err => {
+	up(req, res, err => {
 		if (err) {
 			console.log(err);
 			return res.redirect(req.get('referer'));
 		}
-		gfs.files.find().sort({uploadDate: -1}).toArray((err, songs) => {
-			var file = songs[0].filename;
-			var songToDelete = songs[1] ? songs[1].filename : undefined;
-			studiopost.find((err, posts) => {
-				posts[0].song = file;
-				posts[0].save(err => {
-					if (err) return err;
-					if (songToDelete) {
-						gfs.remove({filename: songToDelete, root: 'studio_media'}, (err, gridStore) => {
-							if (err) return err;
-							res.redirect('/studio');
-						})
-					}
-				});
+		var song = req.files.song ? req.files.song[0].filename : '';
+		var artwork = req.files.artwork ? req.files.artwork[0].filename : '';
+		studiopost.find((err, posts) => {
+			gfs.remove({filename: { $ne: song, $ne: artwork }, root: 'studio_media'}, err => {
+				if (err) return err;
+				posts[0].song = song;
+				posts[0].artwork = artwork;
+				posts[0].save(err => { if (err) return err; res.redirect('/studio') });
 			});
 		});
 	});
