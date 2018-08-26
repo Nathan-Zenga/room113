@@ -27,7 +27,7 @@ router.post('/post/submit', (req, res) => {
 			posts[0].title = req.body.title;
 			posts[0].artist = req.body.artist;
 			posts[0].description = req.body.description;
-			posts[0].song = req.body.url;
+			posts[0].song = req.body.songUrl;
 			posts[0].artwork = req.body.artworkUrl;
 			posts[0].save(err => {
 				if (err) return err;
@@ -37,7 +37,7 @@ router.post('/post/submit', (req, res) => {
 				title: req.body.title,
 				artist: req.body.artist,
 				description: req.body.description,
-				song: req.body.url,
+				song: req.body.songUrl,
 				artwork: req.body.artworkUrl
 			});
 			newPost.save(err => { if (err) throw err });
@@ -54,9 +54,9 @@ router.post('/media/upload', (req, res) => {
 			console.log(err);
 			return res.redirect(req.get('referer'));
 		}
-		var song = req.files.song ? req.files.song[0].filename : '';
-		var artwork = req.files.artwork ? req.files.artwork[0].filename : '';
 		studiopost.find((err, posts) => {
+			var song = req.files.song ? req.files.song[0].filename : posts[0].song;
+			var artwork = req.files.artwork ? req.files.artwork[0].filename : posts[0].artwork;
 			gfs.remove({filename: { $ne: song, $ne: artwork }, root: 'studio_media'}, err => {
 				if (err) return err;
 				posts[0].song = song;
