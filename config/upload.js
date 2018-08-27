@@ -11,10 +11,10 @@ const storage = new GridFsStorage({
 		return new Promise((resolve, reject) => {
 			crypto.randomBytes(16, (err, buf) => {
 				if (err) return reject(err);
-				var pre = /artwork/.test(file.fieldname) ? "artwork" : /song/.test(file.fieldname) ? "song" : "";
+				var pre = file.fieldname == 'song' ? 'song' : file.fieldname == 'artwork' ? 'artwork' : '';
 				resolve({
 					filename: pre + buf.toString('hex') + path.extname(file.originalname),
-					bucketName: /song|artwork/.test(file.fieldname) ? 'studio_media' : 'post_media'
+					bucketName: file.fieldname == 'song' ? 'studio_audio' : file.fieldname == 'artwork' ? 'studio_artwork' : 'post_media'
 				});
 			});
 		});

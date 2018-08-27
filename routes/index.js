@@ -48,9 +48,11 @@ router.get('/studio', (req, res) => {
 
 // Display stored media files
 router.get('/media/:filename', (req, res) => {
-	gfs.collection((/song|artwork/.test(req.originalUrl) ? 'studio_media' : 'post_media'));
+	var filename = req.params.filename;
+	var collection = /song/.test(filename) ? 'studio_audio' : /artwork/.test(filename) ? 'studio_artwork' : 'post_media';
+	gfs.collection(collection);
 
-	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+	gfs.files.findOne({ filename: filename }, (err, file) => {
 		// Check if file exists
 		if (!file || file.length === 0) {
 			return res.status(404).json({
