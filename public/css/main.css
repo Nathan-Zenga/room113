@@ -1,4 +1,23 @@
-﻿.animate.up, .animate.down {
+﻿.centre, .centreX, .centreY {
+	position: relative;
+}
+
+.centre {
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.centreX {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.centreY {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.animate.up, .animate.down {
 	position: relative;
 	transition: .5s;
 }
@@ -9,6 +28,49 @@
 
 .down {
 	animation: down 1s infinite;
+}
+
+header .header-menu {
+	height: 50px;
+}
+
+header .header-menu > div {
+	height: 100%;
+	padding: .5em;
+}
+
+header .header-menu-icon {
+	text-align: right;
+	color: black;
+	font-size: 1.2em;
+}
+
+header .header-banner {
+	height: 100px;
+}
+
+header .logo img {
+	height: 100%;
+}
+
+@media (min-width: 768px) {
+	header .logo,
+	header .logo img {
+		width: 100%;
+	}
+
+	header .logo {
+		padding: .5em 1.5em!important;
+	}
+
+	header .logo img {
+		height: auto;
+	}
+
+	.page header > div {
+		height: 100px;
+		padding: 0;
+	}
 }
 
 @keyframes up {
@@ -25,12 +87,6 @@
 
 .gap {
 	margin-top: 1em;
-}
-
-.centre {
-	position: relative;
-	top: 50%; left: 50%;
-	transform: translate(-50%, -50%);
 }
 
 #toTop {
@@ -86,11 +142,7 @@ section {
 	}
 }
 
-.news.banner {
-	height: calc(100vh / 6);
-}
-
-.news.banner .carousel {
+.header-banner .carousel {
 	height: 100%;
 }
 
@@ -154,23 +206,9 @@ nav {
 	text-align: center;
 }
 
-nav .inner-nav {
-	margin-top: 1.5em;
-	display: none;
-}
-
 @media (min-width: 768px) {
 	nav {
 		text-align: left;
-	}
-
-	nav .inner-nav {
-		margin-top: 0;
-		display: block;
-	}
-
-	nav .nav-menu {
-		display: none;
 	}
 }
 
@@ -184,10 +222,9 @@ nav .inner-nav {
 
 .library.page .blog .post .delete-post {
 	position: relative;
-	right: 0; top: -10px;
-	padding: 20px;
+	top: 0;
+	text-align: right;
 	font-size: 2em;
-	width: auto;
 	cursor: pointer;
 }
 
@@ -202,9 +239,9 @@ nav .inner-nav {
 
 @media (min-width: 768px) {
 	.library.page nav,
-	.library.page .blog .col.blog-body,
 	.studio.page nav,
-	.studio.page section .col {
+	.studio.page section .col,
+	.surgery.page nav {
 		min-height: 100%;
 	}
 
@@ -215,6 +252,13 @@ nav .inner-nav {
 	.library.page .blog .post .post-main-img img {
 		width: auto;
 		height: 100%;
+	}
+
+	.library.page .blog .post .delete-post {
+		position: absolute;
+		right: 10px;
+		padding: 20px;
+		text-align: left;
 	}
 }
 

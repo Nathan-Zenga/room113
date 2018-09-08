@@ -46,3 +46,19 @@ ul {
 .row {
 	margin: 0;
 }
+
+[class*='col-'] {
+	padding: 0;
+}
+
+@media (max-width: 767px) {
+	.dt-view {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.mb-view {
+		display: none;
+	}
+}

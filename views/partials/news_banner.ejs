@@ -1,25 +1,36 @@
-		<div class="news banner">
-			<div class="carousel slide" id="featured-spotlight">
+		<header>
+			<div class="col-sm-2 header-menu">
+				<div class="col-xs-6 logo"><a style="display: block; height: 100%;" href="/"><img class="centreY" src="/img/ROOM 113.png"></a></div>
+				<div class="col-xs-6 mb-view header-menu-icon">
+					<%_ if (page !== 'cinema') { _%>
+						<i class="fas fa-bars"></i>
+						<i class="fas fa-times" style="display: none;"></i>
+					<%_ } _%>
+				</div>
+			</div>
+			<div class="col-sm-10 header-banner">
+				<div class="carousel slide" id="featured-spotlight">
 
-				<!-- Container for slides -->
-				<div class="carousel-inner">
-					<div class="item active">
-						<div class="img"></div>
-						<div class="carousel-caption">
-							<h3 class="carousel-caption-title">Up To No Good</h3>
-							<p class="carousel-caption-artist">AB</p>
+					<!-- Container for slides -->
+					<div class="carousel-inner">
+						<div class="item active">
+							<div class="img"></div>
+							<div class="carousel-caption">
+								<h3 class="carousel-caption-title">Up To No Good</h3>
+								<p class="carousel-caption-artist">AB</p>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<!-- Left + right arrow controls -->
-				<a class="left carousel-control" data-slide="prev">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" data-slide="next">
-					<span class="glyphicon glyphicon-chevron-right"></span>
-					<span class="sr-only">Next</span>
-				</a>
+					<!-- Left + right arrow controls -->
+					<a class="left carousel-control" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
 			</div>
-		</div>
+		</header>

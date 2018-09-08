@@ -30,7 +30,7 @@ $(function() {
 				$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
 			}
 		} catch(err) {
-			console.log(err)
+			console.log(err.message)
 		}
 	};
 
@@ -52,8 +52,9 @@ $(function() {
 		}, 500, "easeInOutExpo")
 	});
 
-	$(".nav-menu").click(function() {
-		$(".inner-nav").stop().slideToggle(200, function(){
+	$(".header-menu-icon").click(function() {
+		$(this).children().toggle();
+		$("nav").stop().slideToggle(200, function(){
 			if ($(this).css("display") == 'none') $(this).css("display", "")
 		});
 	});
@@ -76,7 +77,7 @@ $(function() {
 		var post = $(this).parent();
 		var id = {id: post.data('id')};
 		$.post('/library/admin/blog/post/delete', id, function(r,s) {
-			location.reload();
+			post.slideUp();
 		});
 	});
 
