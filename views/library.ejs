@@ -5,7 +5,7 @@
 				<nav class="col-sm-2 col blog-nav dt-view">
 					<div class="inner-nav">
 						<%_ posts.forEach(post => { _%>
-							<div class="row link title" id="<%= post._id %>"><a><div><%= post.title %></div></a></div>
+							<div class="row link title"><a href="/library/post/<%= post._id %>"><div><%= post.title %></div></a></div>
 						<%_ }) _%>
 					</div>
 				</nav>

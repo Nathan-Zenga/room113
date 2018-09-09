@@ -1,14 +1,14 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 @import url('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Arvo');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Arvo');
 
 html, body {
-	height: 100%;
 	padding:0!important;
-	font-family: 'Arvo', 'Century Gothic', sans-serif;
+	font-family: 'Roboto', 'Arvo', sans-serif;
 	font-size: 16px;
 	color: white;
 	font-feature-settings: "liga" 0;
+	background-color: #aaa;
 }
 
 a, a:link, a:visited, a:hover {
@@ -43,6 +43,10 @@ ul {
 	background-color: transparent;
 }
 
+.gap {
+	margin-top: 1em;
+}
+
 .row {
 	margin: 0;
 }
@@ -61,4 +65,23 @@ ul {
 	.mb-view {
 		display: none;
 	}
+}
+
+.centre, .centreX, .centreY {
+	position: relative;
+}
+
+.centre {
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.centreX {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.centreY {
+	top: 50%;
+	transform: translateY(-50%);
 }
