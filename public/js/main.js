@@ -17,20 +17,20 @@ $(function() {
 			$("#toTop").fadeOut()
 		}
 
-		try {
-			if (window.innerWidth >= 768 && window.pageYOffset > $("nav").offset().top) {
+		var pageNav = $("nav").not(".global-nav");
+
+		if (pageNav.length) {
+			if (window.innerWidth >= 768 && window.pageYOffset > pageNav.offset().top) {
 				$(".inner-nav").css({
 					position: "fixed",
 					top: "0",
 					left: "0",
-					padding: $("nav").css("padding"),
-					width: $("nav").css("width")
+					padding: pageNav.css("padding"),
+					width: pageNav.css("width")
 				});
 			} else {
 				$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
 			}
-		} catch(err) {
-			console.log(err.message)
 		}
 	};
 
@@ -60,16 +60,23 @@ $(function() {
 	});
 
 	var deviceType = detect.parse(navigator.userAgent).device.type;
+	var href = $(".global-nav .link a:first-child").attr("href");
+
+	if (deviceType === 'Tablet') $(".logo a, .global-nav .link a:first-child").removeAttr("href");
 
 	$(".logo").mouseover(function() {
-		if (deviceType === 'Desktop') {
-			$(".sidebar-nav").fadeIn()
+		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
+			$(".global-nav").fadeIn(function() {
+				if (deviceType === 'Tablet') $(".global-nav .link a:first-child").attr("href", href);
+			});
 		}
 	});
 
-	$(".sidebar-nav").mouseleave(function() {
-		if (deviceType === 'Desktop') {
-			$(".sidebar-nav").fadeOut()
+	$(".global-nav").mouseleave(function() {
+		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
+			$(".global-nav").fadeOut(function() {
+				if (deviceType === 'Tablet') $(".global-nav .link a:first-child").removeAttr("href");
+			});
 		}
 	});
 

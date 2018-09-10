@@ -55,6 +55,11 @@ header .header-banner {
 	height: 100px;
 }
 
+header .header-banner .glyphicon {
+	margin-top: 0;
+	transform: translateY(-50%);
+}
+
 header .logo a {
 	display: block;
 	height: 100%;
@@ -212,17 +217,17 @@ nav {
 	text-align: center;
 }
 
-nav.sidebar-nav {
+nav.global-nav {
 	display: none;
 	height: 3em;
 }
 
-nav.sidebar-nav .link {
+nav.global-nav .link {
 	height: 100%;
 	padding: .5em .5em!important;
 }
 
-nav.sidebar-nav .link a {
+nav.global-nav .link a {
 	display: block;
 	height: 100%;
 	background-size: contain;
@@ -235,7 +240,7 @@ nav.sidebar-nav .link a {
 		text-align: left;
 	}
 
-	nav.sidebar-nav {
+	nav.global-nav {
 		position: fixed;
 		top: 0;
 		height: auto;
@@ -243,7 +248,7 @@ nav.sidebar-nav .link a {
 		z-index: 1000;
 	}
 
-	nav.sidebar-nav .link {
+	nav.global-nav .link {
 		width: 100%;
 		height: 100px;
 		padding: .5em 0!important;
