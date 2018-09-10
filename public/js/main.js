@@ -59,6 +59,20 @@ $(function() {
 		});
 	});
 
+	var deviceType = detect.parse(navigator.userAgent).device.type;
+
+	$(".logo").mouseover(function() {
+		if (deviceType === 'Desktop') {
+			$(".sidebar-nav").fadeIn()
+		}
+	});
+
+	$(".sidebar-nav").mouseleave(function() {
+		if (deviceType === 'Desktop') {
+			$(".sidebar-nav").fadeOut()
+		}
+	});
+
 	$("#newpost > .submit").click(function(e) {
 		e.preventDefault();
 		var data = {};

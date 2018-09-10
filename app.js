@@ -9,7 +9,7 @@ var express = require('express'),
 	ejs = require('ejs'),
 	config = require('./config/config');
 
-mongoose.connect(config.db, {useNewUrlParser: true});
+mongoose.connect(config.db);
 let conn = mongoose.connection;
 
 conn.once('open', () => { console.log('Connected to db'); });
