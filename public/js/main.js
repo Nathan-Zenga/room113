@@ -42,7 +42,7 @@ $(function() {
 
 	$(".scrolldown").click(function(){
 		$("html, body").animate({
-			scrollTop: window.innerHeight
+			scrollTop: $(".index.menu").offset().top
 		}, 500, "easeInOutExpo")
 	});
 
@@ -60,14 +60,14 @@ $(function() {
 	});
 
 	var deviceType = detect.parse(navigator.userAgent).device.type;
-	var href = $(".global-nav .link a:first-child").attr("href");
+	var href = $(".global-nav .link a:first").attr("href");
 
-	if (deviceType === 'Tablet') $(".logo a, .global-nav .link a:first-child").removeAttr("href");
+	if (deviceType === 'Tablet') $(".logo a, .global-nav .link a:first").removeAttr("href");
 
 	$(".logo").mouseover(function() {
 		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
 			$(".global-nav").fadeIn(function() {
-				if (deviceType === 'Tablet') $(".global-nav .link a:first-child").attr("href", href);
+				if (deviceType === 'Tablet') $(".global-nav .link a:first").attr("href", href);
 			});
 		}
 	});
@@ -75,7 +75,7 @@ $(function() {
 	$(".global-nav").mouseleave(function() {
 		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
 			$(".global-nav").fadeOut(function() {
-				if (deviceType === 'Tablet') $(".global-nav .link a:first-child").removeAttr("href");
+				if (deviceType === 'Tablet') $(".global-nav .link a:first").removeAttr("href");
 			});
 		}
 	});
@@ -139,15 +139,9 @@ $(function() {
 	$(':file').on('fileselect', function(event, numFiles, label) {
 		var text_input = $(this).parents('.input-group').find(':text');
 		var log = numFiles > 1 ? numFiles + ' files selected' : label;
-		var txt = $(this).parent().find("span").text();
 
-		if( $(this).val() ) {
-			$(".btn").css({height: "3em"});
-			$(this).parent().find("span").text("");
-		} else {
-			$(".btn").css({height: ""});
-			$(this).parent().find("span").text(txt);
-		}
+		$(".btn").css("height", $(this).val() ? "3em" : "");
+		$(this).parent().find("span").css("opacity", $(this).val() ? 0 : "");
 
 		if( text_input.length ) {
 			text_input.val(log);
