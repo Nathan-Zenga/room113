@@ -11,10 +11,31 @@ const storage = new GridFsStorage({
 		return new Promise((resolve, reject) => {
 			crypto.randomBytes(16, (err, buf) => {
 				if (err) return reject(err);
-				var pre = file.fieldname == 'song' ? 'song' : file.fieldname == 'artwork' ? 'artwork' : '';
+				var pre;
+				var bucketName;
+				switch (file.fieldname) {
+					case 'song':
+						pre = "song";
+						bucketName = "studio_audio";
+						break;
+
+					case 'artwork':
+						pre = "artwork";
+						bucketName = "studio_artwork";
+						break;
+
+					case 'news_image':
+						pre = "news";
+						bucketName = "news_images";
+						break;
+
+					default:
+						pre = "";
+						bucketName = "post_media";
+				}
 				resolve({
 					filename: pre + buf.toString('hex') + path.extname(file.originalname),
-					bucketName: file.fieldname == 'song' ? 'studio_audio' : file.fieldname == 'artwork' ? 'studio_artwork' : 'post_media'
+					bucketName: bucketName
 				});
 			});
 		});

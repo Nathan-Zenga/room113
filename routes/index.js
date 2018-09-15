@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 var Grid = require('gridfs-stream');
 var blog = require('../models/blogpost');
 var studiopost = require('../models/studiopost');
+var News = require('../models/newsfeed');
 
 let conn = mongoose.connection;
 
@@ -19,41 +19,60 @@ router.get('/', (req, res) => {
 });
 
 router.get('/cinema', (req, res) => {
-	res.render('cinema', { page: 'cinema' });
+	News.find().sort({created_at: -1}).exec((err, news_items) => {
+		res.render('cinema', {
+			page: 'cinema',
+			items: news_items
+		});
+	});
 });
 
 router.get('/surgery', (req, res) => {
-	res.render('surgery', { page: 'surgery' });
+	News.find().sort({created_at: -1}).exec((err, news_items) => {
+		res.render('surgery', {
+			page: 'surgery',
+			items: news_items
+		});
+	});
 });
 
 router.get('/library', (req, res) => {
-	blog.find().sort({created_at: -1}).exec((err, posts) => {
-		res.render('library', {
-			page: 'library',
-			posts: posts,
-			admin: false
+	News.find().sort({created_at: -1}).exec((err, news_items) => {
+		blog.find().sort({created_at: -1}).exec((err, posts) => {
+			res.render('library', {
+				page: 'library',
+				posts: posts,
+				items: news_items,
+				admin: false
+			})
 		})
-	})
+	});
 });
 
 router.get('/library/post/:post', (req, res) => {
-	blog.find({_id: req.params.post}, (err, posts) => {
-		res.render('library', {
-			page: 'library',
-			posts: posts,
-			admin: false
+	News.find().sort({created_at: -1}).exec((err, news_items) => {
+		blog.find({_id: req.params.post}, (err, posts) => {
+			res.render('library', {
+				page: 'library',
+				posts: posts,
+				items: news_items,
+				admin: false
+			})
 		})
-	})
+	});
 });
 
 router.get('/studio', (req, res) => {
-	studiopost.find().sort({created_at: -1}).exec((err, posts) => {
-		res.render('studio', {
-			page: 'studio',
-			posts: posts,
-			admin: false
+	News.find().sort({created_at: -1}).exec((err, news_items) => {
+		studiopost.find().sort({created_at: -1}).exec((err, posts) => {
+			res.render('studio', {
+				page: 'studio',
+				posts: posts,
+				items: news_items,
+				admin: false
+			})
 		})
-	})
+	});
 });
 
 // Display stored media files

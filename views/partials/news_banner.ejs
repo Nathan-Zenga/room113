@@ -11,13 +11,15 @@
 
 					<!-- Container for slides -->
 					<div class="carousel-inner">
-						<div class="item active">
-							<div class="img"></div>
-							<div class="carousel-caption">
-								<h3 class="carousel-caption-title">Up To No Good</h3>
-								<p class="carousel-caption-artist">AB</p>
+						<%_ items.forEach((item, i) => { _%>
+							<div class="item <%= i == 0 ? 'active' : '' %>">
+								<div class="img"></div>
+								<div class="carousel-caption">
+									<h3 class="caption-headline"><%= item.headline %></h3>
+									<!-- <div class="caption-text"></div> -->
+								</div>
 							</div>
-						</div>
+						<%_ }) _%>
 					</div>
 
 					<!-- Left + right arrow controls -->
