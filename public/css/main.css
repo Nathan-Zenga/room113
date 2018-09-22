@@ -120,6 +120,10 @@ section {
 	height: 5em;
 }
 
+.index.menu a {
+	position: absolute;
+}
+
 .menu .row {
 	height: auto;
 }

@@ -49,12 +49,12 @@ router.get('/library', (req, res) => {
 	});
 });
 
-router.get('/library/post/:post', (req, res) => {
+router.get('/library/post/:id', (req, res) => {
 	News.find().sort({created_at: -1}).exec((err, news_items) => {
-		blog.find({_id: req.params.post}, (err, posts) => {
+		blog.findById(req.params.id, (err, posts) => {
 			res.render('library', {
 				page: 'library',
-				posts: posts,
+				posts: [posts],
 				items: news_items,
 				admin: false
 			})
