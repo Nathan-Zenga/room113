@@ -161,6 +161,48 @@ section {
 	background-image: linear-gradient(to left, #aaa, transparent);
 }
 
+.admin.page .inner-body {
+	padding: 2em 20px;
+}
+
+.admin.page .form-container {
+	max-width: 700px;
+}
+
+.admin.page a {
+	transition: none;
+}
+
+.admin.page .nav li {
+	width: 33.333%;
+	margin: 0;
+	text-align: center;
+}
+
+.admin.page .nav-pills > li > a {
+	border-radius: 0;
+}
+
+.admin.page .nav-pills > li.active > a,
+.admin.page .nav-pills > li > a:focus,
+.admin.page .nav-pills > li > a:hover {
+	border-bottom: 2px solid white;
+	background-color: transparent;
+}
+
+.admin.page .details {
+	margin-bottom: 1em;
+}
+
+.admin.page #editposts .row:not(:first-child) {
+	margin-top: 1em
+}
+
+.admin.page #editposts .delete-post {
+	display: block;
+	text-align: right;
+}
+
 .cinema.page section,
 .cinema.page section .row {
 	height: auto;
@@ -267,14 +309,6 @@ nav.global-nav .link a {
 	margin-bottom: .5em;
 }
 
-.library.page .blog .post .delete-post {
-	position: relative;
-	top: 0;
-	text-align: right;
-	font-size: 2em;
-	cursor: pointer;
-}
-
 .library.page .blog .post .post-main-img {
 	height: auto;
 }
@@ -308,27 +342,6 @@ nav.global-nav .link a {
 		padding: 20px;
 		text-align: left;
 	}
-}
-
-.library.page.admin #newpost {
-	max-width: 500px;
-	padding: 0 20px;
-}
-
-.library.page.admin #newpost form {
-	margin: 0;
-}
-
-.library.page.admin #newpost .gap {
-	margin: 0 0 2em;
-}
-
-.library.page.admin #newpost .filename-display {
-	border-radius: 4px;
-}
-
-.library.page.admin .inner-body {
-	background-color: grey;
 }
 
 .studio-body audio {

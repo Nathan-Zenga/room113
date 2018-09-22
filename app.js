@@ -44,8 +44,8 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', require('./routes/index'));
-app.use('/library/admin/', require('./routes/admin-library'));
-app.use('/studio/admin/', require('./routes/admin-studio'));
+app.use('/admin/library/', require('./routes/admin-library'));
+app.use('/admin/studio/', require('./routes/admin-studio'));
 
 var port = process.env.PORT || 1113;
 app.listen(port, function() {

@@ -81,23 +81,44 @@ $(function() {
 	});
 
 	$("#newpost > .submit").click(function(e) {
+		var result = $("#newpost .result");
 		e.preventDefault();
+		result.text("Submitting...");
 		var data = {};
+		var missing = [];
 
 		$("#newpost .details").each(function() {
 			var key = $(this).attr('name');
 			data[key] = $(this).val();
+			
+			if (!$(this).val()) missing.push(key);
 		});
 
-		$.post('/library/admin/blog/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
-		});
+		if (missing.includes("title") && missing.includes("textbody")) {
+			result
+			.text("At least fill in a title or post message.")
+			.delay(5000)
+			.fadeOut(function(){
+				$(this).text("").css("display", "");
+			});
+		} else {
+			$.post('/admin/library/post/submit', data, function(p,s) {
+				if ($(":file").val()) {
+					result.text("Uploading media...");
+					$("#uploader .submit").click();
+				} else {
+					result.text("Done!").delay(5000).fadeOut(function(){
+						$(this).text("").css("display", "");
+					});
+				}
+			});
+		}
 	});
 
 	$(".delete-post").click(function(){
-		var post = $(this).parent();
-		var id = {id: post.data('id')};
-		$.post('/library/admin/blog/post/delete', id, function(r,s) {
+		var post = $(this).closest(".post");
+		var id = {id: post.attr('id')};
+		$.post('/admin/library/post/delete', id, function(r,s) {
 			post.slideUp();
 		});
 	});
@@ -112,8 +133,8 @@ $(function() {
 			data[key] = $(this).val();
 		});
 
-		$.post('/studio/admin/post/submit', data, function(r,s) {
-			$(":file").val() ? $("#uploader .submit").click() : location.pathname = r;
+		$.post('/admin/studio/post/submit', data, function(p,s) {
+			$(":file").val() ? $("#uploader .submit").click() : location.pathname = p;
 		});
 	});
 

@@ -18,6 +18,15 @@ router.get('/', (req, res) => {
 	res.render('index', { page: 'home' });
 });
 
+router.get('/admin', (req, res) => {
+	blog.find().sort({created_at: -1}).exec((err, posts) => {
+		res.render('admin', {
+			page: 'admin',
+			posts: posts
+		});
+	});
+});
+
 router.get('/cinema', (req, res) => {
 	News.find().sort({created_at: -1}).exec((err, news_items) => {
 		res.render('cinema', {

@@ -16,7 +16,6 @@
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach(post => { _%>
 							<div class="post" data-id="<%= post._id %>">
-								<%_ if (admin) { _%><div class="delete-post">&times;</div><%_ } _%>
 								<%_ if (post.title) { _%>
 									<div class="row post-title">
 										<h2 class="main-title" style="display: inline;"><%= post.title %></h2>

@@ -14,16 +14,6 @@ conn.once('open', function() {
 });
 // ===================================================
 
-router.get('/', (req, res) => {
-	News.find().sort({created_at: -1}).exec((err, news_items) => {
-		res.render('studio', {
-			page: 'studio admin',
-			items: news_items,
-			admin: true
-		});
-	});
-});
-
 router.post('/post/submit', (req, res) => {
 	studiopost.find((err, posts) => {
 		if (posts && posts.length) {

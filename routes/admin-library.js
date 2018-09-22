@@ -15,24 +15,7 @@ conn.once('open', function() {
 });
 // ===================================================
 
-router.get('/', (req, res) => {
-	blog.find().sort({created_at: -1}).exec((err, posts) => {
-		res.render('library', {
-			page: 'library',
-			posts: posts,
-			admin: true
-		})
-	})
-});
-
-router.get('/blog/post', (req, res) => {
-	res.render('admin-library', {
-		page: 'library admin',
-		admin: true
-	});
-});
-
-router.post('/blog/post/submit', (req, res) => {
+router.post('/post/submit', (req, res) => {
 	var newPost = new blog({
 		title: req.body.title,
 		subtitle: req.body.subtitle,
@@ -45,7 +28,7 @@ router.post('/blog/post/submit', (req, res) => {
 	});
 });
 
-router.post('/blog/post/media/upload', (req, res) => {
+router.post('/post/media/upload', (req, res) => {
 	var image = upload.single('img'); // fieldname
 	// new upload process
 	image(req, res, err => {
@@ -66,7 +49,7 @@ router.post('/blog/post/media/upload', (req, res) => {
 	});
 });
 
-router.post('/blog/post/delete', (req, res) => {
+router.post('/post/delete', (req, res) => {
 	var deleting = () => {
 		blog.deleteOne({ _id: req.body.id }, (err, result) => {
 			if (err) return err;
