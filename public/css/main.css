@@ -154,11 +154,11 @@ section {
 }
 
 .header-banner .carousel-control.left {
-	background-image: linear-gradient(to right, #aaa, transparent);
+	background-image: linear-gradient(to right, rgb(34, 79, 35), transparent);
 }
 
 .header-banner .carousel-control.right {
-	background-image: linear-gradient(to left, #aaa, transparent);
+	background-image: linear-gradient(to left, rgb(34, 79, 35), transparent);
 }
 
 .admin.page .inner-body {
@@ -204,6 +204,11 @@ section {
 
 .admin.page #posts .edit-form {
 	display: none;
+}
+
+.admin.page .post .title {
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .cinema.page section,

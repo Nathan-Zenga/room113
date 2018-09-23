@@ -35,7 +35,7 @@ router.post('/post/submit', (req, res) => {
 			});
 			newPost.save(err => { if (err) throw err });
 		}
-		res.send('/studio')
+		res.send('Done!')
 	})
 });
 
@@ -45,7 +45,7 @@ router.post('/media/upload', (req, res) => {
 	up(req, res, err => {
 		if (err) {
 			console.log(err);
-			return res.redirect(req.get('referer'));
+			return res.send("Error occured.");
 		}
 		studiopost.find((err, posts) => {
 			var song = req.files.song ? req.files.song[0].filename : posts[0].song;
@@ -57,7 +57,7 @@ router.post('/media/upload', (req, res) => {
 					if (err) return err;
 					posts[0].song = song;
 					posts[0].artwork = artwork;
-					posts[0].save(err => { if (err) return err; res.redirect('/studio') });
+					posts[0].save(err => { if (err) return err; res.send('Upload complete!') });
 				});
 			});
 		});

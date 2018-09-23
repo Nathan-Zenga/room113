@@ -24,22 +24,8 @@ router.post('/post/submit', (req, res) => {
 	});
 	newPost.save(err => {
 		if (err) throw err;
-		res.send('/library')
+		res.send('Done!')
 	});
-});
-
-router.post('/post/update', (req, res) => {
-	blog.findById(req.body.id, (err, post) => {
-		if (err) return err;
-		post.title = req.body.title || post.title;
-		post.subtitle = req.body.subtitle || post.subtitle;
-		post.textbody = req.body.textbody || post.textbody;
-		post.tags = req.body.tags || post.tags;
-		post.save((err) => {
-			if (err) return err;
-			res.send("Post updated!");
-		})
-	})
 });
 
 router.post('/post/media/upload', (req, res) => {
@@ -56,11 +42,25 @@ router.post('/post/media/upload', (req, res) => {
 				posts[0].mediaList.push(img);
 				posts[0].save(err => {
 					if (err) throw err;
-					res.redirect('/library');
+					res.send('Done!');
 				});
 			})
 		})
 	});
+});
+
+router.post('/post/update', (req, res) => {
+	blog.findById(req.body.id, (err, post) => {
+		if (err) return err;
+		post.title = req.body.title || post.title;
+		post.subtitle = req.body.subtitle || post.subtitle;
+		post.textbody = req.body.textbody || post.textbody;
+		post.tags = req.body.tags || post.tags;
+		post.save((err) => {
+			if (err) return err;
+			res.send("Post updated!");
+		})
+	})
 });
 
 router.post('/post/delete', (req, res) => {

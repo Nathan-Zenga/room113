@@ -51,8 +51,7 @@ router.get('/library', (req, res) => {
 			res.render('library', {
 				page: 'library',
 				posts: posts,
-				items: news_items,
-				admin: false
+				items: news_items
 			})
 		})
 	});
@@ -64,8 +63,7 @@ router.get('/library/post/:id', (req, res) => {
 			res.render('library', {
 				page: 'library',
 				posts: [posts],
-				items: news_items,
-				admin: false
+				items: news_items
 			})
 		})
 	});
@@ -77,8 +75,7 @@ router.get('/studio', (req, res) => {
 			res.render('studio', {
 				page: 'studio',
 				posts: posts,
-				items: news_items,
-				admin: false
+				items: news_items
 			})
 		})
 	});

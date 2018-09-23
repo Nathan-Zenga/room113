@@ -34,11 +34,11 @@ $(function() {
 		}
 	};
 
-	$(".index").css("background-color", randomColour());
+	// $(".index").css("background-color", randomColour());
 
-	$(".col").each(function() {
-		$(this).css("background-color", randomColour());
-	});
+	// $(".col").each(function() {
+	// 	$(this).css("background-color", randomColour());
+	// });
 
 	$(".scrolldown").click(function(){
 		$("html, body").animate({
@@ -85,16 +85,13 @@ $(function() {
 		e.preventDefault();
 		result.text("Submitting...");
 		var data = {};
-		var missing = [];
 
-		$("#newpost .details").each(function() {
+		$("#libraryPostInfo .details").each(function() {
 			var key = $(this).attr('name');
 			data[key] = $(this).val();
-			
-			if (!$(this).val()) missing.push(key);
 		});
 
-		if (missing.includes("title") && missing.includes("textbody")) {
+		if (!$("#title").val() && !$("#textbody").val()) {
 			result
 			.text("At least fill in a title or post message.")
 			.delay(5000)
@@ -102,17 +99,55 @@ $(function() {
 				$(this).text("").css("display", "");
 			});
 		} else {
-			$.post('/admin/library/post/submit', data, function(p,s) {
-				if ($(":file").val()) {
-					result.text("Uploading media...");
+			$.post('/admin/library/post/submit', data, function(msg,s) {
+				if ($("#newpost :file").val()) {
 					$("#newpost .uploader .submit").click();
 				} else {
-					result.text("Done!").delay(5000).fadeOut(function(){
+					result.text(msg).delay(5000).fadeOut(function(){
 						$(this).text("").css("display", "");
 					});
 				}
 			});
 		}
+	});
+
+	$("#newpost .uploader .submit").click(function(e){
+		e.preventDefault();
+
+		var result = $("#newpost .result");
+		var form = $('#newpost .uploader')[0];
+		var data = new FormData(form);
+
+		result.text("Uploading media");
+		var txt = result.text();
+
+		var interval = setInterval(function() {
+			if (result.text().includes(" . . .")) {
+				result.text(txt);
+			} else {
+				result.text(result.text() + " .");
+			}
+		}, 700);
+
+		$.ajax({
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			url: '/admin/library/post/media/upload',
+			data: data,
+			processData: false,
+			contentType: false,
+			cache: false,
+			timeout: 600000,
+			success: function (msg) {
+				clearInterval(interval);
+				result.text(msg).delay(5000).fadeOut(function(){
+					$(this).text("").css("display", "");
+				});
+			},
+			error: function (err) {
+				console.log(err); result.text(err);
+			}
+		});
 	});
 
 	$(".edit-post").click(function() {
@@ -142,15 +177,18 @@ $(function() {
 	});
 
 	$(".delete-post").click(function(){
-		var p = $(this).closest(".post");
-		var id = {id: p.attr('id')};
-		$.post('/admin/library/post/delete', id, function(r,s) {
-			p.slideUp();
-		});
+		var c = confirm("Sure you wanna delete?");
+		if (c) {
+			var p = $(this).closest(".post");
+			var id = {id: p.attr('id')};
+			$.post('/admin/library/post/delete', id, function(r,s) {
+				p.slideUp();
+			});
+		}
 	});
 
 
-	$("#songInfo").parent().children(".submit").click(function(e) {
+	$("#sotw > .submit").click(function(e) {
 		e.preventDefault();
 		var data = {};
 
@@ -159,8 +197,54 @@ $(function() {
 			data[key] = $(this).val();
 		});
 
-		$.post('/admin/studio/post/submit', data, function(p,s) {
-			$(":file").val() ? $("#sotw .uploader .submit").click() : location.pathname = p;
+		$.post('/admin/studio/post/submit', data, function(msg,s) {
+			if ($("#sotw :file").val()) {
+				$("#sotw .uploader .submit").click()
+			} else {
+				$("#sotw .result").text(msg).delay(5000).fadeOut(function(){
+					$(this).text("").css("display", "");
+				});
+			}
+
+		});
+	});
+
+	$("#sotw .uploader .submit").click(function(e) {
+		e.preventDefault();
+
+		var result = $("#sotw .result");
+		var form = $('#sotw .uploader')[0];
+		var data = new FormData(form);
+
+		result.text("Uploading media");
+		var txt = result.text();
+
+		var interval = setInterval(function() {
+			if (result.text().includes(" . . .")) {
+				result.text(txt);
+			} else {
+				result.text(result.text() + " .");
+			}
+		}, 700);
+
+		$.ajax({
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			url: '/admin/studio/media/upload',
+			data: data,
+			processData: false,
+			contentType: false,
+			cache: false,
+			timeout: 600000,
+			success: function (msg) {
+				clearInterval(interval);
+				result.text(msg).delay(5000).fadeOut(function(){
+					$(this).text("").css("display", "");
+				});
+			},
+			error: function (err) {
+				console.log(err); result.text(err);
+			}
 		});
 	});
 

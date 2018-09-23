@@ -11,7 +11,7 @@
 
 
 				<div id="newpost" class="tab-pane fade in active">
-					<form class="form-group">
+					<form class="form-group" id="libraryPostInfo">
 						<fieldset>
 							<label class="sr-only">Title</label>
 							<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
@@ -27,7 +27,7 @@
 						</fieldset>
 					</form>
 					<label class="sr-only">Media Upload</label>
-					<form class="form-group" class="uploader" method="post" action="/admin/library/post/media/upload" enctype="multipart/form-data">
+					<form class="uploader">
 						<div class="input-group" style="width: 100%; margin-bottom: 1em">
 							<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
 								<div class="btn" style="display: block; text-align: left;">
@@ -52,7 +52,7 @@
 						<%_ posts.forEach((post) => { _%>
 							<div class="post" id="<%= post._id %>">
 								<div class="row">
-									<div class="col-xs-6"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&nbsp;<i><%= post.subtitle %></i><%_ } _%></div>
+									<div class="col-xs-6 title"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&nbsp;<i><%= post.subtitle %></i><%_ } _%></div>
 									<div class="col-xs-6"><p><a class="edit-post">EDIT</a>&#8195;|&#8195;<a class="delete-post">REMOVE</a></p></div>
 								</div>
 								<div class="row">
@@ -108,7 +108,7 @@
 					<i style="margin-bottom: 1em; display: inherit; font-size: .8em">No URL? Upload instead</i>
 
 					<label class="sr-only">Upload Song File</label>
-					<form class="uploader" style="margin-bottom: 1em" method="post" action="/admin/studio/media/upload" enctype="multipart/form-data">
+					<form class="uploader" style="margin-bottom: 1em">
 						<fieldset>
 							<div class="input-group" style="width: 100%; margin-bottom: 1em">
 								<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
