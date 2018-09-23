@@ -28,6 +28,20 @@ router.post('/post/submit', (req, res) => {
 	});
 });
 
+router.post('/post/update', (req, res) => {
+	blog.findById(req.body.id, (err, post) => {
+		if (err) return err;
+		post.title = req.body.title || post.title;
+		post.subtitle = req.body.subtitle || post.subtitle;
+		post.textbody = req.body.textbody || post.textbody;
+		post.tags = req.body.tags || post.tags;
+		post.save((err) => {
+			if (err) return err;
+			res.send("Post updated!");
+		})
+	})
+});
+
 router.post('/post/media/upload', (req, res) => {
 	var image = upload.single('img'); // fieldname
 	// new upload process

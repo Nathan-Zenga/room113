@@ -173,19 +173,19 @@ section {
 	transition: none;
 }
 
-.admin.page .nav li {
+.admin.page .tabs li {
 	width: 33.333%;
 	margin: 0;
 	text-align: center;
 }
 
-.admin.page .nav-pills > li > a {
+.admin.page .tabs > li > a {
 	border-radius: 0;
 }
 
-.admin.page .nav-pills > li.active > a,
-.admin.page .nav-pills > li > a:focus,
-.admin.page .nav-pills > li > a:hover {
+.admin.page .tabs > li.active > a,
+.admin.page .tabs > li > a:focus,
+.admin.page .tabs > li > a:hover {
 	border-bottom: 2px solid white;
 	background-color: transparent;
 }
@@ -194,13 +194,16 @@ section {
 	margin-bottom: 1em;
 }
 
-.admin.page #editposts .row:not(:first-child) {
+.admin.page #posts .row:not(:first-child) {
 	margin-top: 1em
 }
 
-.admin.page #editposts .delete-post {
-	display: block;
+.admin.page #posts p {
 	text-align: right;
+}
+
+.admin.page #posts .edit-form {
+	display: none;
 }
 
 .cinema.page section,

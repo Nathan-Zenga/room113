@@ -105,7 +105,7 @@ $(function() {
 			$.post('/admin/library/post/submit', data, function(p,s) {
 				if ($(":file").val()) {
 					result.text("Uploading media...");
-					$("#uploader .submit").click();
+					$("#newpost .uploader .submit").click();
 				} else {
 					result.text("Done!").delay(5000).fadeOut(function(){
 						$(this).text("").css("display", "");
@@ -115,11 +115,37 @@ $(function() {
 		}
 	});
 
+	$(".edit-post").click(function() {
+		var form = $(this).closest(".post").find("form");
+		$(".post form").not(form).slideUp(200);
+		form.slideToggle(200);
+	});
+
+	$(".edit-form .submit").click(function(e) {
+		e.preventDefault();
+		var result = $(".edit-form .result");
+		result.text("Submitting...");
+		var data = {};
+
+		data.id = $(this).closest(".post").get(0).id;
+
+		$(this).closest(".edit-form").find(".details").each(function() {
+			var key = $(this).attr('name');
+			data[key] = $(this).val();
+		});
+
+		$.post('/admin/library/post/update', data, function(r,s) {
+			result.text(r).delay(5000).fadeOut(function(){
+				$(this).text("").css("display", "");
+			});
+		});
+	});
+
 	$(".delete-post").click(function(){
-		var post = $(this).closest(".post");
-		var id = {id: post.attr('id')};
+		var p = $(this).closest(".post");
+		var id = {id: p.attr('id')};
 		$.post('/admin/library/post/delete', id, function(r,s) {
-			post.slideUp();
+			p.slideUp();
 		});
 	});
 
@@ -134,7 +160,7 @@ $(function() {
 		});
 
 		$.post('/admin/studio/post/submit', data, function(p,s) {
-			$(":file").val() ? $("#uploader .submit").click() : location.pathname = p;
+			$(":file").val() ? $("#sotw .uploader .submit").click() : location.pathname = p;
 		});
 	});
 
