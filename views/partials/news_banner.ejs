@@ -1,25 +1,28 @@
 		<header>
-			<div class="col-sm-2 header-menu">
-				<div class="col-xs-6 logo"><a href="/"></a></div>
-				<div class="col-xs-6 mb-view header-menu-icon">
+			<div class="header-menu">
+				<div class="col-xs-4 header-menu-icon">
 					<i class="fas fa-bars"></i>
 					<i class="fas fa-times" style="display: none;"></i>
 				</div>
+				<div class="col-xs-4 logo"><a href="/"></a></div>
+				<div class="col-xs-4"></div>
 			</div>
-			<div class="col-sm-10 header-banner">
+			<div class="header-banner">
 				<div class="carousel slide" id="featured-spotlight">
 
 					<!-- Container for slides -->
 					<div class="carousel-inner">
-						<%_ items.forEach((item, i) => { _%>
-							<div class="item <%= i == 0 ? 'active' : '' %>">
-								<div class="img"></div>
-								<div class="carousel-caption">
-									<h3 class="caption-headline"><%= item.headline %></h3>
-									<!-- <div class="caption-text"></div> -->
+						<%_ if (items) { _%>
+							<%_ items.forEach((item, i) => { _%>
+								<div class="item <%= i == 0 ? 'active' : '' %>">
+									<div class="img"></div>
+									<div class="carousel-caption">
+										<h3 class="caption-headline"><%= item.headline %></h3>
+										<!-- <div class="caption-text"></div> -->
+									</div>
 								</div>
-							</div>
-						<%_ }) _%>
+							<%_ }) _%>
+						<%_ } _%>
 					</div>
 
 					<!-- Left + right arrow controls -->
