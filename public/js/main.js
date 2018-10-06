@@ -52,34 +52,14 @@ $(function() {
 		}, 500, "easeInOutExpo")
 	});
 
-	var deviceType;
-	var e = $(".global-nav .link a:first");
-	var href = e.attr('href');
-
-	$(".header-menu-icon, .global-nav").mouseenter(function() {
-		deviceType = detect.parse(navigator.userAgent).device.type;
-		deviceType === 'Tablet' ? e.removeAttr("href") : e.attr("href", href);
-	});
-
 	$(".header-menu-icon").click(function() {
-		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
-			$(".global-nav").fadeIn(function() {
-				if (deviceType === 'Tablet') e.attr("href", href);
-			});
-		} else {
-			$(this).children().toggle();
-			$("nav").stop().slideToggle(200, function(){
-				if ($(this).css("display") == 'none') $(this).css("display", "")
-			});
-		}
-	});
-
-	$(".global-nav").mouseleave(function() {
-		if (window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType)) {
-			$(".global-nav").fadeOut(function() {
-				if (deviceType === 'Tablet') $(".global-nav .link a:first").removeAttr("href");
-			});
-		}
+		var deviceType = detect.parse(navigator.userAgent).device.type;
+		var cond = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
+		var elm = cond ? ".global-nav" : "nav";
+		$(this).children().toggle();
+		$(elm).stop().slideToggle(200, function(){
+			if ($(this).css("display") == 'none') $(this).css("display", "")
+		});
 	});
 
 	$("#newpost > .submit").click(function(e) {

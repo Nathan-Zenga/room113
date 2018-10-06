@@ -37,7 +37,7 @@
 }
 
 header .header-menu {
-	height: 50px;
+	height: 60px;
 }
 
 header .header-menu > div {
@@ -81,13 +81,6 @@ header .logo img {
 
 	header .logo img {
 		width: 100%;
-	}
-
-	header .logo {
-		padding: .5em 1.5em!important;
-	}
-
-	header .logo img {
 		height: auto;
 	}
 }
@@ -268,7 +261,8 @@ nav {
 
 nav.global-nav {
 	display: none;
-	height: 3em;
+	height: 60px;
+	min-height: auto!important;
 }
 
 nav.global-nav .link {
@@ -290,17 +284,8 @@ nav.global-nav .link a {
 	}
 
 	nav.global-nav {
-		position: fixed;
-		top: 0;
-		height: auto;
-		padding: 0 1.5em;
-		z-index: 1000;
-	}
-
-	nav.global-nav .link {
-		width: 100%;
-		height: 100px;
-		padding: .5em 0 2em!important;
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 }
 
