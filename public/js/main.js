@@ -26,10 +26,13 @@ $(function() {
 					top: "0",
 					left: "0",
 					padding: pageNav.css("padding"),
-					width: pageNav.css("width")
+					width: pageNav.css("width"),
+					height: "100%",
+					transition: ".5s background-color",
+					backgroundColor: "rgba(0,0,0,.25)"
 				});
 			} else {
-				$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: ""});
+				$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: "", height: "", transition: "", backgroundColor: ""});
 			}
 		}
 	};
@@ -52,7 +55,7 @@ $(function() {
 		}, 500, "easeInOutExpo")
 	});
 
-	$(".header-menu-icon").click(function() {
+	$(".menu-icon").click(function() {
 		var deviceType = detect.parse(navigator.userAgent).device.type;
 		var cond = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
 		var elm = cond ? ".global-nav" : "nav";
