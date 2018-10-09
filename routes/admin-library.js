@@ -29,22 +29,19 @@ router.post('/post/submit', (req, res) => {
 });
 
 router.post('/post/media/upload', (req, res) => {
-	var image = upload.single('img'); // fieldname
+	var image = upload.array('img', Infinity); // fieldname
 	// new upload process
 	image(req, res, err => {
 		if (err) {
 			console.log(err);
 			return res.redirect(req.get('referer'));
 		}
-		gfs.files.find().sort({uploadDate: -1}).toArray((err, imgs) => {
-			var img = imgs[0].filename;
-			blog.find().sort({created_at: -1}).exec((err, posts) => {
-				posts[0].mediaList.push(img);
-				posts[0].save(err => {
-					if (err) throw err;
-					res.send('Done!');
-				});
-			})
+		blog.find().sort({created_at: -1}).exec((err, posts) => {
+			req.files.forEach(file => { posts[0].mediaList.push(file.filename) });
+			posts[0].save(err => {
+				if (err) throw err;
+				res.send('Done!');
+			});
 		})
 	});
 });
@@ -65,7 +62,7 @@ router.post('/post/update', (req, res) => {
 
 router.post('/post/delete', (req, res) => {
 	var deleting = () => {
-		blog.deleteOne({ _id: req.body.id }, (err, result) => {
+		blog.deleteOne({ _id: req.body.id }, err => {
 			if (err) return err;
 			return res.send('/library');
 		});
@@ -73,10 +70,10 @@ router.post('/post/delete', (req, res) => {
 
 	blog.findById(req.body.id, (err, post) => {
 		if (post.mediaList.length) {
-			clearMedia(gfs, post.mediaList, 'post_media', (err) => {
+			clearMedia(gfs, post.mediaList, 'post_media', err => {
 				if (err) return err;
 				deleting();
-			});
+			})
 		} else {
 			deleting();
 		}

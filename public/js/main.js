@@ -43,6 +43,29 @@ $(function() {
 	// 	$(this).css("background-color", randomColour());
 	// });
 
+	/********************** BOOTSTRAP CAROUSEL JS ***********************/
+
+	// Activating the carousel (disabling automatic transition)
+	$(".carousel").carousel({interval: false});
+
+	// Enabling Carousel Indicators
+	$(".carousel-indicators > li").click(function(){
+		var item = $(this);
+		item.parent(".carousel").carousel( item.index() );
+	});
+
+	// Enabling Carousel Controls
+	$(".left").click(function(){
+		$(this).parent(".carousel").carousel("prev");
+	});
+
+	$(".right").click(function(){
+		$(this).parent(".carousel").carousel("next");
+	});
+
+	/********************** End of BOOTSTRAP CAROUSEL JS ***********************/
+
+
 	$(".scrolldown").click(function(){
 		$("html, body").animate({
 			scrollTop: $(".index.menu").offset().top

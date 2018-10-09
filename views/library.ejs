@@ -31,10 +31,9 @@
 											<div class="col-sm-5 post-media carousel slide" id="post-media-carousel" style="height: 300px;">
 									
 												<ol class="carousel-indicators" style="bottom: 0">
-													<li id="cover0" data-target="#post-media-carousel" data-slide-to="0" class="active"></li>
-													<li id="cover1" data-target="#post-media-carousel" data-slide-to="1"></li>
-													<li id="cover2" data-target="#post-media-carousel" data-slide-to="2"></li>
-													<li id="cover3" data-target="#post-media-carousel" data-slide-to="3"></li>
+													<%_ post.mediaList.forEach((item, i) => { _%>
+														<li data-target="#post-media-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active ' : '' %>"></li>
+													<%_ }) _%>
 												</ol>
 
 												<div class="carousel-inner" style="height: 100%">
