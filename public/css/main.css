@@ -36,37 +36,27 @@
 	z-index: 1000;
 }
 
-header .inner-header {
-	height: 60px;
-}
-
 header .inner-header > div {
-	height: 100%;
-	padding: .5em;
+	padding: 1em;
 }
 
 header .inner-header > .menu-icon {
 	font-size: 1.2em;
-	padding-left: 1em;
 	cursor: pointer;
 }
 
-header .inner-header > .menu-icon > * {
-	position: absolute;
-}
-
-header .header-banner {
+header .header-news-banner {
 	height: 100px;
 }
 
-header .header-banner .glyphicon {
+header .header-news-banner .glyphicon {
 	margin-top: 0;
 	transform: translateY(-50%);
 }
 
 header .logo a {
 	display: block;
-	height: 100%;
+	height: 45px;
 	background-image: url('/img/ROOM 113.png');
 	background-position: center;
 	background-size: contain;
@@ -136,24 +126,24 @@ section {
 	}
 }
 
-.header-banner .carousel {
+.header-news-banner .carousel {
 	height: 100%;
 	background-color: white;
 }
 
-.header-banner .carousel-control {
+.header-news-banner .carousel-control {
 	opacity: 1;
 }
 
-.header-banner .carousel-control.left {
+.header-news-banner .carousel-control.left {
 	background-image: linear-gradient(to right, rgb(34, 79, 35), transparent);
 }
 
-.header-banner .carousel-control.right {
+.header-news-banner .carousel-control.right {
 	background-image: linear-gradient(to left, rgb(34, 79, 35), transparent);
 }
 
-.admin.page .inner-body {
+.admin.page section {
 	padding: 2em 20px;
 }
 
@@ -265,18 +255,16 @@ nav {
 
 nav.global-nav {
 	display: none;
-	height: 60px;
 	min-height: auto!important;
 }
 
 nav.global-nav .link {
-	height: 100%;
 	padding: .5em .5em!important;
 }
 
 nav.global-nav .link a {
 	display: block;
-	height: 100%;
+	height: 45px;
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -288,8 +276,8 @@ nav.global-nav .link a {
 	}
 
 	nav.global-nav {
-		margin-top: 1em;
-		margin-bottom: 1em;
+		padding-top: 1em;
+		padding-bottom: 1em;
 	}
 }
 

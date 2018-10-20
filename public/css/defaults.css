@@ -85,3 +85,10 @@ ul {
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.submit {
+	position: relative;
+	left: 50%;
+	max-width: 300px;
+	transform: translateX(-50%);
+}

@@ -1,143 +1,149 @@
 <%_ include partials/header _%>
-		<div class="form-container centreX">
-			<ul class="nav nav-pills tabs">
-				<li class="active"><a data-toggle="pill" href="#newpost">New Library Post</a></li>
-				<li><a data-toggle="pill" href="#posts">Edit Library Posts</a></li>
-				<li><a data-toggle="pill" href="#sotw">Song of the Week</a></li>
-			</ul>
+		<%_ include partials/news_banner _%>
+		<%_ include partials/global_nav _%>
+		<section>
+			<div class="form-container centreX">
+				<ul class="nav nav-pills tabs">
+					<li class="active"><a data-toggle="pill" href="#newpost">New Library Post</a></li>
+					<li><a data-toggle="pill" href="#posts">Edit Library Posts</a></li>
+					<li><a data-toggle="pill" href="#sotw">Song of the Week</a></li>
+				</ul>
 
-			<div class="tab-content gap">
-
-
-
-				<div id="newpost" class="tab-pane fade in active">
-					<form class="form-group" id="libraryPostInfo">
-						<fieldset>
-							<label class="sr-only">Title</label>
-							<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
-
-							<label class="sr-only">Subtitle</label>
-							<input class="form-control details" type="text" id="subtitle" name="subtitle" placeholder="Subtitle">
-
-							<label class="sr-only">Text body</label>
-							<textarea class="form-control details" type="text" id="textbody" name="textbody" placeholder="Write your stuff..."></textarea>
-
-							<label class="sr-only">Tags</label>
-							<input class="form-control details" style="margin-bottom: 0" type="text" id="tags" name="tags" placeholder="Tags (separate each with commas)">
-						</fieldset>
-					</form>
-					<label class="sr-only">Media Upload</label>
-					<form class="uploader">
-						<div class="input-group" style="width: 100%; margin-bottom: 1em">
-							<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
-								<div class="btn" style="display: block; text-align: left;">
-									<span>Choose your image(s)&hellip;</span> <input type="file" id="img" name="img" style="display: none;" multiple>
-								</div>
-							</label>
-							<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
-						</div>
-						<input class="form-control submit" type="submit" style="display: none" value="Post">
-					</form>
-					<label class="sr-only">POST</label>
-					<input class="form-control submit" type="submit" value="Post">
-					<div class="result gap"></div>
-				</div>
+				<div class="tab-content gap">
 
 
 
+					<div id="newpost" class="tab-pane fade in active">
+						<form class="form-group" id="libraryPostInfo">
+							<fieldset>
+								<label class="sr-only">Title</label>
+								<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
 
+								<label class="sr-only">Subtitle</label>
+								<input class="form-control details" type="text" id="subtitle" name="subtitle" placeholder="Subtitle">
 
-				<div id="posts" class="tab-pane fade">
-					<%_ if (posts && posts.length) { _%>
-						<%_ posts.forEach((post) => { _%>
-							<div class="post" id="<%= post._id %>">
-								<div class="row">
-									<div class="col-xs-6 title"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&nbsp;<i><%= post.subtitle %></i><%_ } _%></div>
-									<div class="col-xs-6"><p><a class="edit-post">EDIT</a>&#8195;|&#8195;<a class="delete-post">REMOVE</a></p></div>
-								</div>
-								<div class="row">
-									<form class="form-group edit-form">
-										<fieldset>
-											<label class="sr-only">Title</label>
-											<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
+								<label class="sr-only">Text body</label>
+								<textarea class="form-control details" type="text" id="textbody" name="textbody" placeholder="Write your stuff..."></textarea>
 
-											<label class="sr-only">Subtitle</label>
-											<input class="form-control details" type="text" id="subtitle" name="subtitle" placeholder="Subtitle">
-
-											<label class="sr-only">Text body</label>
-											<textarea class="form-control details" type="text" id="textbody" name="textbody" placeholder="Write your stuff..."></textarea>
-
-											<label class="sr-only">Tags</label>
-											<input class="form-control details" type="text" id="tags" name="tags" placeholder="Tags (separate each with commas)">
-
-											<label class="sr-only">Save Changes</label>
-											<input class="form-control submit" type="submit" value="Save Changes">
-											<div class="result gap"></div>
-										</fieldset>
-									</form>
-								</div>
-							</div>
-						<%_ }) _%>
-					<%_ } _%>
-				</div>
-
-
-
-
-
-				<div id="sotw" class="tab-pane fade">
-					<form id="songInfo">
-						<fieldset>
-							<label class="sr-only">Title</label>
-							<input class="form-control details" type="text" id="title" name="title" placeholder="Song Title">
-
-							<label class="sr-only">Artist</label>
-							<input class="form-control details" type="text" id="artist" name="artist" placeholder="Artist Name">
-
-							<label class="sr-only">Description</label>
-							<textarea class="form-control details" type="text" id="description" name="description" placeholder="Description"></textarea>
-
-							<label class="sr-only">Song URL</label>
-							<input class="form-control details" type="text" id="songUrl" name="songUrl" placeholder="Song URL">
-
-							<label class="sr-only">Artwork URL</label>
-							<input class="form-control details" type="text" id="artworkUrl" name="artworkUrl" placeholder="Artwork URL">
-						</fieldset>
-					</form>
-
-					<i style="margin-bottom: 1em; display: inherit; font-size: .8em">No URL? Upload instead</i>
-
-					<label class="sr-only">Upload Song File</label>
-					<form class="uploader" style="margin-bottom: 1em">
-						<fieldset>
+								<label class="sr-only">Tags</label>
+								<input class="form-control details" style="margin-bottom: 0" type="text" id="tags" name="tags" placeholder="Tags (separate each with commas)">
+							</fieldset>
+						</form>
+						<label class="sr-only">Media Upload</label>
+						<form class="uploader">
 							<div class="input-group" style="width: 100%; margin-bottom: 1em">
 								<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
 									<div class="btn" style="display: block; text-align: left;">
-										<span>Upload song file</span> <input type="file" id="song" name="song" style="display: none;">
-									</div>
-								</label>
-								<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
-							</div>
-							<div class="input-group" style="width: 100%;">
-								<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
-									<div class="btn" style="display: block; text-align: left;">
-										<span>Upload artwork</span> <input type="file" id="artwork" name="artwork" style="display: none;">
+										<span>Choose your image(s)&hellip;</span> <input type="file" id="img" name="img" style="display: none;" multiple>
 									</div>
 								</label>
 								<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
 							</div>
 							<input class="form-control submit" type="submit" style="display: none" value="Post">
-						</fieldset>
-					</form>
-					<label class="sr-only">POST</label>
-					<input class="form-control submit" type="submit" value="Post">
-					<div class="result gap"></div>
+						</form>
+						<label class="sr-only">POST</label>
+						<input class="form-control submit" type="submit" value="Post">
+						<div class="result gap"></div>
+					</div>
+
+
+
+
+
+					<div id="posts" class="tab-pane fade">
+						<%_ if (posts && posts.length) { _%>
+							<%_ posts.forEach((post) => { _%>
+								<div class="post" id="<%= post._id %>">
+									<div class="row">
+										<div class="col-xs-6 title"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&nbsp;<i><%= post.subtitle %></i><%_ } _%></div>
+										<div class="col-xs-6"><p><a class="edit-post">EDIT</a>&#8195;|&#8195;<a class="delete-post">REMOVE</a></p></div>
+									</div>
+									<div class="row">
+										<form class="form-group edit-form">
+											<fieldset>
+												<label class="sr-only">Title</label>
+												<input class="form-control details" type="text" id="title" name="title" placeholder="Title">
+
+												<label class="sr-only">Subtitle</label>
+												<input class="form-control details" type="text" id="subtitle" name="subtitle" placeholder="Subtitle">
+
+												<label class="sr-only">Text body</label>
+												<textarea class="form-control details" type="text" id="textbody" name="textbody" placeholder="Write your stuff..."></textarea>
+
+												<label class="sr-only">Tags</label>
+												<input class="form-control details" type="text" id="tags" name="tags" placeholder="Tags (separate each with commas)">
+
+												<label class="sr-only">Save Changes</label>
+												<input class="form-control submit" type="submit" value="Save Changes">
+												<div class="result gap"></div>
+											</fieldset>
+										</form>
+									</div>
+								</div>
+							<%_ }) _%>
+						<%_ } else { _%>
+							<p style="text-align: center;">No posts yet...</p>
+						<%_ } _%>
+					</div>
+
+
+
+
+
+					<div id="sotw" class="tab-pane fade">
+						<form id="songInfo">
+							<fieldset>
+								<label class="sr-only">Title</label>
+								<input class="form-control details" type="text" id="title" name="title" placeholder="Song Title">
+
+								<label class="sr-only">Artist</label>
+								<input class="form-control details" type="text" id="artist" name="artist" placeholder="Artist Name">
+
+								<label class="sr-only">Description</label>
+								<textarea class="form-control details" type="text" id="description" name="description" placeholder="Description"></textarea>
+
+								<label class="sr-only">Song URL</label>
+								<input class="form-control details" type="text" id="songUrl" name="songUrl" placeholder="Song URL">
+
+								<label class="sr-only">Artwork URL</label>
+								<input class="form-control details" type="text" id="artworkUrl" name="artworkUrl" placeholder="Artwork URL">
+							</fieldset>
+						</form>
+
+						<i style="margin-bottom: 1em; display: inherit; font-size: .8em">No URL? Upload instead</i>
+
+						<label class="sr-only">Upload Song File</label>
+						<form class="uploader" style="margin-bottom: 1em">
+							<fieldset>
+								<div class="input-group" style="width: 100%; margin-bottom: 1em">
+									<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
+										<div class="btn" style="display: block; text-align: left;">
+											<span>Upload song file</span> <input type="file" id="song" name="song" style="display: none;">
+										</div>
+									</label>
+									<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
+								</div>
+								<div class="input-group" style="width: 100%;">
+									<label class="input-group-btn" style="position: absolute; z-index: 10; color: black; width: 100%">
+										<div class="btn" style="display: block; text-align: left;">
+											<span>Upload artwork</span> <input type="file" id="artwork" name="artwork" style="display: none;">
+										</div>
+									</label>
+									<input type="text" class="form-control filename-display" style="border-radius: 4px" readonly>
+								</div>
+								<input class="form-control submit" type="submit" style="display: none" value="Post">
+							</fieldset>
+						</form>
+						<label class="sr-only">POST</label>
+						<input class="form-control submit" type="submit" value="Post">
+						<div class="result gap">Press the post button to also remove the song of the week.</div>
+					</div>
+
+
+
+
+
 				</div>
-
-
-
-
-
 			</div>
-		</div>
+		</section>
 <%_ include partials/footer _%>

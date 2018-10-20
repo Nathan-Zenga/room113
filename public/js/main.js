@@ -195,6 +195,7 @@ $(function() {
 		}
 	});
 
+	var sotwResultTxt = $("#sotw .result").text();
 
 	$("#sotw > .submit").click(function(e) {
 		e.preventDefault();
@@ -210,7 +211,7 @@ $(function() {
 				$("#sotw .uploader .submit").click()
 			} else {
 				$("#sotw .result").text(msg).delay(5000).fadeOut(function(){
-					$(this).text("").css("display", "");
+					$(this).text(sotwResultTxt).css("display", "");
 				});
 			}
 
@@ -247,7 +248,7 @@ $(function() {
 			success: function (msg) {
 				clearInterval(interval);
 				result.text(msg).delay(5000).fadeOut(function(){
-					$(this).text("").css("display", "");
+					$(this).text(sotwResultTxt).css("display", "");
 				});
 			},
 			error: function (err) {

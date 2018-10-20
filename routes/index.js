@@ -71,11 +71,13 @@ router.get('/library/post/:id', (req, res) => {
 
 router.get('/studio', (req, res) => {
 	News.find().sort({created_at: -1}).exec((err, news_items) => {
-		studiopost.find().sort({created_at: -1}).exec((err, posts) => {
-			res.render('studio', {
-				page: 'studio',
-				posts: posts,
-				items: news_items
+		studiopost.find((err, posts) => {
+			studiopost.findById(posts[0]._id, (err, post) => {
+				res.render('studio', {
+					page: 'studio',
+					post: post,
+					items: news_items
+				})
 			})
 		})
 	});

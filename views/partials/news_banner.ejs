@@ -1,39 +1,43 @@
 		<header>
-			<div class="inner-header">
-				<div class="col-xs-4 menu-icon">
-					<i class="fas fa-bars centreY"></i>
-					<i class="fas fa-times centreY" style="display: none;"></i>
+			<div class="inner-header row">
+				<div class="col-xs-3 menu-icon">
+					<%_ if ( !url.includes('admin') ) { _%>
+						<i class="fas fa-bars"></i>
+						<i class="fas fa-times" style="display: none;"></i>
+					<%_ } _%>
 				</div>
-				<div class="col-xs-4 logo"><a href="/"></a></div>
-				<div class="col-xs-4"></div>
+				<div class="col-xs-6 logo"><a href="/"></a></div>
+				<div class="col-xs-3"></div>
 			</div>
-			<div class="header-banner">
-				<div class="carousel slide" id="featured-spotlight">
+			<%_ if ( !url.includes('admin') ) { _%>
+				<div class="header-news-banner row">
+					<div class="carousel slide" id="featured-spotlight">
 
-					<!-- Container for slides -->
-					<div class="carousel-inner">
-						<%_ if (items) { _%>
-							<%_ items.forEach((item, i) => { _%>
-								<div class="item <%= i == 0 ? 'active' : '' %>">
-									<div class="img"></div>
-									<div class="carousel-caption">
-										<h3 class="caption-headline"><%= item.headline %></h3>
-										<!-- <div class="caption-text"></div> -->
+						<!-- Container for slides -->
+						<div class="carousel-inner">
+							<%_ if (items) { _%>
+								<%_ items.forEach((item, i) => { _%>
+									<div class="item <%= i == 0 ? 'active' : '' %>">
+										<div class="img"></div>
+										<div class="carousel-caption">
+											<h3 class="caption-headline"><%= item.headline %></h3>
+											<!-- <div class="caption-text"></div> -->
+										</div>
 									</div>
-								</div>
-							<%_ }) _%>
-						<%_ } _%>
-					</div>
+								<%_ }) _%>
+							<%_ } _%>
+						</div>
 
-					<!-- Left + right arrow controls -->
-					<a class="left carousel-control" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="right carousel-control" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right"></span>
-						<span class="sr-only">Next</span>
-					</a>
+						<!-- Left + right arrow controls -->
+						<a class="left carousel-control" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
 				</div>
-			</div>
+			<%_ } _%>
 		</header>

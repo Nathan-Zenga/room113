@@ -11,9 +11,9 @@
 			</nav>
 			<main class="col-sm-10 col">
 				<div class="studio-body" style="text-align: center;">
-				<%_ if (posts && posts.length) { _%>
-					<%_ posts.forEach(post => { _%>
-						<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
+				<%_ if (post) { _%>
+					<div class="row" id="sotw" style="margin-bottom: 1em"><h2 style="margin: 0"><%= post.song ? 'Song of the Week' : 'No Songs This Week' %></h2></div>
+					<%_ if (post.song) { _%>
 						<%_ if (!/soundcloud|youtu/.test(post.song)) { _%>
 							<%_ if (post.artwork) { _%>
 								<%_ var artwork = /http/.test(post.artwork) ? post.artwork : '/media/' + post.artwork; _%>
@@ -22,36 +22,34 @@
 								<div class="row" id="artwork" style="margin-bottom: 1em"><img style="height: 170px" src="img/cd.png"></div>
 							<%_ } _%>
 						<%_ } _%>
-						<%_ if (post.song) { _%>
-							<%_ var start = post.song.indexOf('http'); _%>
-							<%_ var end = post.song.indexOf('"><'); _%>
-							<%_ var songSC = post.song.slice(start, end); _%>
-							<%_ var songYT = post.song.slice(-11); _%>
-							<%_ var song = /soundcloud/.test(post.song) ? songSC : /youtu/.test(post.song) ? songYT : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
-							<div class="row" id="music-player" style="margin-bottom: 1em">
-							<%_ if (song == songSC) { _%>
-								<iframe class="sc" width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
-							<%_ } else if (song == songYT) { _%>
-								<iframe class="yt" scrolling="no" frameborder="no" allow="autoplay" src="https://www.youtube.com/embed/<%= song %>?rel=0&amp;showinfo=0"></iframe>
-							<%_ } else { _%>
-								<audio src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
-							<%_ } _%>
-							</div>
-						<%_ } _%>
-						<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0"><%= post.title %></h3></div>
-						<div class="row" id="song-artist" style="margin-bottom: 1em"><p><%= post.artist %></p></div>
-						<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;">
-						<%_ if (post.description.includes('\n')) { _%>
-							<%_ let lines = post.description.split('\n') _%>
-							<%_ lines.forEach((line, i) => { _%>
-								<%= line %>
-								<%_ if (i !== lines.length-1) { _%><br><%_ } _%>
-							<%_ }) _%>
+						<%_ var start = post.song.indexOf('http'); _%>
+						<%_ var end = post.song.indexOf('"><'); _%>
+						<%_ var songSC = post.song.slice(start, end); _%>
+						<%_ var songYT = post.song.slice(-11); _%>
+						<%_ var song = /soundcloud/.test(post.song) ? songSC : /youtu/.test(post.song) ? songYT : /http/.test(post.song) ? post.song : '/media/' + post.song; _%>
+						<div class="row" id="music-player" style="margin-bottom: 1em">
+						<%_ if (song == songSC) { _%>
+							<iframe class="sc" width="350" height="350" scrolling="no" frameborder="no" allow="autoplay" src="<%= song %>"></iframe>
+						<%_ } else if (song == songYT) { _%>
+							<iframe class="yt" scrolling="no" frameborder="no" allow="autoplay" src="https://www.youtube.com/embed/<%= song %>?rel=0&amp;showinfo=0"></iframe>
 						<%_ } else { _%>
-							<%= post.description %>
+							<audio src="<%= song %>" controls><source src="<%= song %>" type="audio/mpeg"></audio>
 						<%_ } _%>
 						</div>
-					<%_ }) _%>
+					<%_ } _%>
+					<div class="row" id="song-title" style="margin-bottom: 1em"><h3 style="margin: 0"><%= post.title %></h3></div>
+					<div class="row" id="song-artist" style="margin-bottom: 1em"><p><%= post.artist %></p></div>
+					<div class="row" id="description" style="margin-bottom: 1em; padding: 0 20px;">
+					<%_ if (post.description.includes('\n')) { _%>
+						<%_ let lines = post.description.split('\n') _%>
+						<%_ lines.forEach((line, i) => { _%>
+							<%= line %>
+							<%_ if (i !== lines.length-1) { _%><br><%_ } _%>
+						<%_ }) _%>
+					<%_ } else { _%>
+						<%= post.description %>
+					<%_ } _%>
+					</div>
 				<%_ } _%>
 				</div>
 			</main>
