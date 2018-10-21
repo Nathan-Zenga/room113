@@ -45,6 +45,13 @@ header .inner-header > .menu-icon {
 	cursor: pointer;
 }
 
+header .inner-header > .menu-icon > div {
+	-webkit-transform-origin: top left;
+	-webkit-transform: scale(.7);
+	transform-origin: top left;
+	transform: scale(.7);
+}
+
 header .header-news-banner {
 	height: 100px;
 }
@@ -76,6 +83,11 @@ header .logo img {
 	header .logo img {
 		width: 100%;
 		height: auto;
+	}
+
+	header .inner-header > .menu-icon > div {
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 }
 
@@ -245,17 +257,16 @@ section {
 	padding: 1.5em;
 }
 
-.page:not(.home) nav .link:not(:last-child) {
-	padding-bottom: 1.5em;
-}
-
 nav {
 	text-align: center;
 }
 
+nav.sidebar-nav .link:not(:last-child) {
+	padding-bottom: 1.5em;
+}
+
 nav.global-nav {
 	display: none;
-	min-height: auto!important;
 }
 
 nav.global-nav .link {
@@ -278,6 +289,10 @@ nav.global-nav .link a {
 	nav.global-nav {
 		padding-top: 1em;
 		padding-bottom: 1em;
+	}
+
+	nav.sidebar-nav {
+		min-height: 100vh;
 	}
 }
 
@@ -303,14 +318,6 @@ nav.global-nav .link a {
 }
 
 @media (min-width: 768px) {
-	.cinema.page nav,
-	.library.page nav,
-	.studio.page nav,
-	.surgery.page nav,
-	.studio.page section .col {
-		min-height: 100vh;
-	}
-
 	.library.page .blog .post .post-media {
 		margin-bottom: 0;
 	}
@@ -324,6 +331,10 @@ nav.global-nav .link a {
 		right: 10px;
 		padding: 20px;
 		text-align: left;
+	}
+
+	.studio.page section .col {
+		min-height: 100vh;
 	}
 }
 

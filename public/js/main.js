@@ -82,10 +82,8 @@ $(function() {
 		var deviceType = detect.parse(navigator.userAgent).device.type;
 		var cond = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
 		var elm = cond ? ".global-nav" : "nav";
-		$(this).children().toggle();
-		$(elm).stop().slideToggle(200, function(){
-			if ($(this).css("display") == 'none') $(this).css("display", "")
-		});
+		$(this).children().toggleClass("is-active");
+		$(elm).stop().slideToggle(200);
 	});
 
 	$("#newpost > .submit").click(function(e) {
