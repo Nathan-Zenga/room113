@@ -1,15 +1,4 @@
 $(function() {
-	var randomColour = () => {
-		var arr = [];
-
-		for (var i = 0; i < 3; i++) {
-			arr.push(Math.round(Math.random() * 255));
-		}
-
-		arr = "rgb(" + arr.join(",") + ")";
-		return arr;
-	};
-
 	var toggleOnScroll = () => {
 		if (window.pageYOffset > 50) {
 			$("#toTop").fadeIn()
@@ -36,12 +25,6 @@ $(function() {
 			}
 		}
 	};
-
-	// $(".index").css("background-color", randomColour());
-
-	// $(".col").each(function() {
-	// 	$(this).css("background-color", randomColour());
-	// });
 
 	/********************** BOOTSTRAP CAROUSEL JS ***********************/
 
@@ -82,8 +65,12 @@ $(function() {
 		var deviceType = detect.parse(navigator.userAgent).device.type;
 		var cond = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
 		var elm = cond ? ".global-nav" : "nav";
-		$(this).children().toggleClass("is-active");
-		$(elm).stop().slideToggle(200);
+		if (!$(".admin").length) {
+			$(this).children().toggleClass("is-active");
+			$(elm).stop().slideToggle(200, function() {
+				if ($(this).css("display") === "none") $(this).css("display", ""); 
+			})
+		};
 	});
 
 	$("#newpost > .submit").click(function(e) {
@@ -109,7 +96,7 @@ $(function() {
 				if ($("#newpost :file").val()) {
 					$("#newpost .uploader .submit").click();
 				} else {
-					result.text(msg).delay(5000).fadeOut(function(){
+					result.stop().text(msg).delay(5000).fadeOut(function(){
 						$(this).text("").css("display", "");
 					});
 				}
@@ -129,9 +116,9 @@ $(function() {
 
 		var interval = setInterval(function() {
 			if (result.text().includes(" . . .")) {
-				result.text(txt);
+				result.stop().text(txt);
 			} else {
-				result.text(result.text() + " .");
+				result.stop().text(result.text() + " .");
 			}
 		}, 700);
 
@@ -146,7 +133,7 @@ $(function() {
 			timeout: 600000,
 			success: function (msg) {
 				clearInterval(interval);
-				result.text(msg).delay(5000).fadeOut(function(){
+				result.stop().text(msg).delay(5000).fadeOut(function(){
 					$(this).text("").css("display", "");
 				});
 			},
@@ -176,7 +163,7 @@ $(function() {
 		});
 
 		$.post('/admin/library/post/update', data, function(r,s) {
-			result.text(r).delay(5000).fadeOut(function(){
+			result.stop().text(r).delay(5000).fadeOut(function(){
 				$(this).text("").css("display", "");
 			});
 		});
@@ -188,7 +175,12 @@ $(function() {
 			var p = $(this).closest(".post");
 			var id = {id: p.attr('id')};
 			$.post('/admin/library/post/delete', id, function(r,s) {
-				p.slideUp();
+				p.slideUp(function(){
+					$(this).remove();
+					if (!$(".post").length) $("#posts").css({display: "none", transition: "none"}).html('<p style="text-align: center;">No posts yet...</p>').fadeIn(function() {
+						$(this).css({transition: ""});
+					});
+				});
 			});
 		}
 	});
@@ -230,7 +222,7 @@ $(function() {
 			if (result.text().includes(" . . .")) {
 				result.text(txt);
 			} else {
-				result.text(result.text() + " .");
+				result.stop().text(result.text() + " .");
 			}
 		}, 700);
 
@@ -245,7 +237,7 @@ $(function() {
 			timeout: 600000,
 			success: function (msg) {
 				clearInterval(interval);
-				result.text(msg).delay(5000).fadeOut(function(){
+				result.stop().text(msg).delay(5000).fadeOut(function(){
 					$(this).text(sotwResultTxt).css("display", "");
 				});
 			},

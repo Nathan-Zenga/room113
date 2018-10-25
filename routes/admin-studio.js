@@ -43,10 +43,7 @@ router.post('/media/upload', (req, res) => {
 	var up = upload.fields([{name: 'song'}, {name: 'artwork'}]);
 	// new upload process
 	up(req, res, err => {
-		if (err) {
-			console.log(err);
-			return res.send("Error occured.");
-		}
+		if (err) return res.send(err);
 		studiopost.find((err, posts) => {
 			var song = req.files.song ? req.files.song[0].filename : posts[0].song;
 			var artwork = req.files.artwork ? req.files.artwork[0].filename : posts[0].artwork;

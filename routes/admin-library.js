@@ -32,10 +32,7 @@ router.post('/post/media/upload', (req, res) => {
 	var image = upload.array('img', Infinity); // fieldname
 	// new upload process
 	image(req, res, err => {
-		if (err) {
-			console.log(err);
-			return res.redirect(req.get('referer'));
-		}
+		if (err) return res.send(err);
 		blog.find().sort({created_at: -1}).exec((err, posts) => {
 			req.files.forEach(file => { posts[0].mediaList.push(file.filename) });
 			posts[0].save(err => {
@@ -71,7 +68,7 @@ router.post('/post/delete', (req, res) => {
 	blog.findById(req.body.id, (err, post) => {
 		if (post.mediaList.length) {
 			clearMedia(gfs, post.mediaList, 'post_media', err => {
-				if (err) return err;
+				if (err) return res.send(err);
 				deleting();
 			})
 		} else {
