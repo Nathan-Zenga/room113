@@ -33,4 +33,5 @@ var browserDetect = {
 	}
 }
 // Call browserDetect object when DOM is ready 
-jQuery(document).ready(browserDetect.init);
+// jQuery(document).ready(browserDetect.init);
+browserDetect.init();
