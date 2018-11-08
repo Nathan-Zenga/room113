@@ -247,9 +247,17 @@ section, .inner-body {
 	display: none;
 }
 
+.admin.page .post .row > * {
+	margin-bottom: 10px;
+}
+
 .admin.page .post .title {
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.admin.page .post .buttons {
+	text-align: right;
 }
 
 .cinema.page section,

@@ -55,8 +55,12 @@
 							<%_ posts.forEach((post) => { _%>
 								<div class="post" id="<%= post._id %>">
 									<div class="row">
-										<div class="col-xs-6 title"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&nbsp;<i><%= post.subtitle %></i><%_ } _%></div>
-										<div class="col-xs-6"><p><a class="edit-post">EDIT</a>&#8195;|&#8195;<a class="delete-post">REMOVE</a></p></div>
+										<div class="col-md-6 title"><%= post.title || 'Untitled' %><%_ if (post.subtitle) { _%>:&#8195;<i><%= post.subtitle %></i><%_ } _%></div>
+										<div class="col-md-6 buttons">
+											<a href="/library/post/<%= post._id %>">VIEW</a>&#8195;|&#8195;
+											<a class="edit-post">EDIT</a>&#8195;|&#8195;
+											<a class="delete-post">REMOVE</a>
+										</div>
 									</div>
 									<div class="row">
 										<form class="form-group edit-form">

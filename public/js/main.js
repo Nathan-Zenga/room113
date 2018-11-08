@@ -1,3 +1,52 @@
+var randomRGBA = (a) => {
+	if (!a) a = 1;
+	var arr = [];
+
+	for (var i = 0; i < 3; i++) {
+		arr.push(Math.round(Math.random() * 255));
+	}
+
+	arr = "rgba(" + arr.join(",") + "," + a + ")";
+	return arr;
+};
+
+var uploader = (d) => {
+	var result = $("#"+d.id+" .result");
+	var form = $("#"+d.id+" .uploader")[0];
+	var data = new FormData(form);
+
+	result.text("Uploading media");
+	var txt = result.text();
+
+	var interval = setInterval(function() {
+		if (result.text().includes(" . . .")) {
+			result.text(txt);
+		} else {
+			result.stop().text(result.text() + " .");
+		}
+	}, 700);
+
+	$.ajax({
+		type: 'POST',
+		enctype: 'multipart/form-data',
+		url: d.postUrl,
+		data: data,
+		processData: false,
+		contentType: false,
+		cache: false,
+		timeout: 600000,
+		success: function (msg) {
+			clearInterval(interval);
+			result.stop().text(msg).delay(5000).fadeOut(function(){
+				$(this).text(d.resultMsg || "").css("display", "");
+			});
+		},
+		error: function (err) {
+			console.log(err); result.text(err);
+		}
+	});
+}
+
 var toggleOnScroll = () => {
 	if (window.pageYOffset > 50) {
 		$("#toTop").fadeIn()
@@ -47,6 +96,19 @@ $(".right").click(function(){
 
 /********************** End of BOOTSTRAP CAROUSEL JS ***********************/
 
+$("#toTop").click(function(){
+	$("html, body").animate({
+		scrollTop: 0
+	}, 500, "easeInOutExpo")
+});
+
+if ($(".cinema.page").length) {
+	$(".cinema.page section .col").each(function(){
+		$(this).css({
+			backgroundImage: "linear-gradient(-45deg," + randomRGBA(.35) + "," + randomRGBA(.35) + ")"
+		})
+	})
+}
 
 $("#key").click(function(){
 	var v = 100;
@@ -63,12 +125,6 @@ $("#key").click(function(){
 		});
 	});
 })
-
-$("#toTop").click(function(){
-	$("html, body").animate({
-		scrollTop: 0
-	}, 500, "easeInOutExpo")
-});
 
 $(".menu-icon").click(function() {
 	var deviceType = detect.parse(navigator.userAgent).device.type;
@@ -115,41 +171,10 @@ $("#newpost > .submit").click(function(e) {
 
 $("#newpost .uploader .submit").click(function(e){
 	e.preventDefault();
-
-	var result = $("#newpost .result");
-	var form = $('#newpost .uploader')[0];
-	var data = new FormData(form);
-
-	result.text("Uploading media");
-	var txt = result.text();
-
-	var interval = setInterval(function() {
-		if (result.text().includes(" . . .")) {
-			result.stop().text(txt);
-		} else {
-			result.stop().text(result.text() + " .");
-		}
-	}, 700);
-
-	$.ajax({
-		type: 'POST',
-		enctype: 'multipart/form-data',
-		url: '/admin/library/post/media/upload',
-		data: data,
-		processData: false,
-		contentType: false,
-		cache: false,
-		timeout: 600000,
-		success: function (msg) {
-			clearInterval(interval);
-			result.stop().text(msg).delay(5000).fadeOut(function(){
-				$(this).text("").css("display", "");
-			});
-		},
-		error: function (err) {
-			console.log(err); result.text(err);
-		}
-	});
+	uploader({
+		id: 'newpost',
+		postUrl: '/admin/library/post/media/upload'
+	})
 });
 
 $(".edit-post").click(function() {
@@ -220,39 +245,10 @@ $("#sotw > .submit").click(function(e) {
 $("#sotw .uploader .submit").click(function(e) {
 	e.preventDefault();
 
-	var result = $("#sotw .result");
-	var form = $('#sotw .uploader')[0];
-	var data = new FormData(form);
-
-	result.text("Uploading media");
-	var txt = result.text();
-
-	var interval = setInterval(function() {
-		if (result.text().includes(" . . .")) {
-			result.text(txt);
-		} else {
-			result.stop().text(result.text() + " .");
-		}
-	}, 700);
-
-	$.ajax({
-		type: 'POST',
-		enctype: 'multipart/form-data',
-		url: '/admin/studio/media/upload',
-		data: data,
-		processData: false,
-		contentType: false,
-		cache: false,
-		timeout: 600000,
-		success: function (msg) {
-			clearInterval(interval);
-			result.stop().text(msg).delay(5000).fadeOut(function(){
-				$(this).text(sotwResultTxt).css("display", "");
-			});
-		},
-		error: function (err) {
-			console.log(err); result.text(err);
-		}
+	uploader({
+		id: 'sotw',
+		postUrl: '/admin/studio/media/upload',
+		resultMsg: sotwResultTxt
 	});
 });
 
