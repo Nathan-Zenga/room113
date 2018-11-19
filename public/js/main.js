@@ -110,6 +110,17 @@ if ($(".cinema.page").length) {
 	})
 }
 
+if ($(".library.page .post-media").length) {
+	$(".post-media").append("<div class='centre loader'></div>");
+	document.onreadystatechange = function() {
+		if (document.readyState == 'complete') {
+			$(".loader").fadeOut(function(){
+				$(this).remove();
+			})
+		}
+	}
+}
+
 $("#key").click(function(){
 	var v = 100;
 	$(this).css("transition", "0s").addClass("turn").get(0).addEventListener("animationend", function() {
@@ -139,10 +150,10 @@ $(".menu-icon").click(function() {
 });
 
 $("#newpost > .submit").click(function(e) {
-	var result = $("#newpost .result");
 	e.preventDefault();
-	result.text("Submitting...");
 	var data = {};
+	var result = $("#newpost .result");
+	result.text("Submitting...");
 
 	$("#libraryPostInfo .details").each(function() {
 		var key = $(this).attr('name');
@@ -165,6 +176,8 @@ $("#newpost > .submit").click(function(e) {
 					$(this).text("").css("display", "");
 				});
 			}
+			$("#newpost .details, #newpost :file").val("");
+			$("#newpost :file").trigger('fileselect');
 		});
 	}
 });
@@ -238,7 +251,8 @@ $("#sotw > .submit").click(function(e) {
 				$(this).text(sotwResultTxt).css("display", "");
 			});
 		}
-
+		$("#sotw .details, #sotw :file").val("");
+		$("#sotw :file").trigger('fileselect');
 	});
 });
 

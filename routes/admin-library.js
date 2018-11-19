@@ -7,8 +7,8 @@ var clearMedia = require('../config/config').clearMedia;
 var blog = require('../models/blogpost');
 
 let conn = mongoose.connection;
-
 let gfs;
+
 conn.once('open', function() {
 	gfs = Grid(conn.db, mongoose.mongo);
 	gfs.collection('post_media');

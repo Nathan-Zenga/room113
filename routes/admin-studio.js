@@ -7,8 +7,8 @@ var studiopost = require('../models/studiopost');
 var News = require('../models/newsfeed');
 
 let conn = mongoose.connection;
-
 let gfs;
+
 conn.once('open', function() {
 	gfs = Grid(conn.db, mongoose.mongo);
 });

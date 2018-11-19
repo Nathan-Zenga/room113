@@ -7,8 +7,8 @@ var studiopost = require('../models/studiopost');
 var News = require('../models/newsfeed');
 
 let conn = mongoose.connection;
-
 let gfs;
+
 conn.once('open', function() {
 	gfs = Grid(conn.db, mongoose.mongo);
 });
@@ -62,7 +62,7 @@ router.get('/library/post/:id', (req, res) => {
 		blog.findById(req.params.id, (err, posts) => {
 			res.render('library', {
 				page: 'library',
-				posts: [posts],
+				posts: posts ? [posts] : null,
 				items: news_items
 			})
 		})
