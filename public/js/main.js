@@ -10,7 +10,7 @@ var randomRGBA = (a) => {
 	return arr;
 };
 
-var uploader = (d) => {
+var uploader = (d, cb) => {
 	var result = $("#"+d.id+" .result");
 	var form = $("#"+d.id+" .uploader")[0];
 	var data = new FormData(form);
@@ -40,6 +40,7 @@ var uploader = (d) => {
 			result.stop().text(msg).delay(5000).fadeOut(function(){
 				$(this).text(d.resultMsg || "").css("display", "");
 			});
+			if (cb) cb();
 		},
 		error: function (err) {
 			console.log(err); result.text(err);
@@ -163,6 +164,8 @@ $(".menu-icon").click(function() {
 	};
 });
 
+var $npButton = $("#newpost > .submit");
+
 $("#newpost > .submit").click(function(e) {
 	e.preventDefault();
 	var data = {};
@@ -173,6 +176,8 @@ $("#newpost > .submit").click(function(e) {
 		var key = $(this).attr('name');
 		data[key] = $(this).val();
 	});
+
+	$npButton.attr("disabled", true);
 
 	if (!$("#title").val() && !$("#textbody").val()) {
 		result
@@ -189,6 +194,7 @@ $("#newpost > .submit").click(function(e) {
 				result.stop().text(msg).delay(5000).fadeOut(function(){
 					$(this).text("").css("display", "");
 				});
+				$npButton.removeAttr("disabled");
 			}
 			$("#newpost .details, #newpost :file").val("");
 			$("#newpost :file").trigger('fileselect');
@@ -201,7 +207,9 @@ $("#newpost .uploader .submit").click(function(e){
 	uploader({
 		id: 'newpost',
 		postUrl: '/admin/library/post/media/upload'
-	})
+	}, function() {
+		$npButton.removeAttr("disabled");
+	});
 });
 
 $(".edit-post").click(function() {
@@ -247,6 +255,7 @@ $(".delete-post").click(function(){
 });
 
 var sotwResultTxt = $("#sotw .result").text();
+var $sotwButton = $("#sotw > .submit");
 
 $("#sotw > .submit").click(function(e) {
 	e.preventDefault();
@@ -257,6 +266,8 @@ $("#sotw > .submit").click(function(e) {
 		data[key] = $(this).val();
 	});
 
+	$sotwButton.attr("disabled", true);
+
 	$.post('/admin/studio/post/submit', data, function(msg,s) {
 		if ($("#sotw :file").val()) {
 			$("#sotw .uploader .submit").click()
@@ -264,6 +275,7 @@ $("#sotw > .submit").click(function(e) {
 			$("#sotw .result").text(msg).delay(5000).fadeOut(function(){
 				$(this).text(sotwResultTxt).css("display", "");
 			});
+			$sotwButton.removeAttr("disabled");
 		}
 		$("#sotw .details, #sotw :file").val("");
 		$("#sotw :file").trigger('fileselect');
@@ -277,6 +289,8 @@ $("#sotw .uploader .submit").click(function(e) {
 		id: 'sotw',
 		postUrl: '/admin/studio/media/upload',
 		resultMsg: sotwResultTxt
+	}, function( ) {
+		$sotwButton.removeAttr("disabled");
 	});
 });
 
