@@ -16,62 +16,74 @@
 			<main class="col-sm-<%= posts && posts.length ? 10 : 12 %> col blog-container">
 				<div class="blog-body">
 					<%_ if (posts && posts.length) { _%>
-						<%_ posts.forEach(post => { _%>
-							<div class="post" data-id="<%= post._id %>">
-								<%_ if (post.title) { _%>
-									<div class="row post-title">
-										<h2 class="main-title" style="display: inline;"><%= post.title %></h2>
-										<%_ if (post.subtitle) { _%>&#8195;<i class="sub-title" style="display: inline;"><%= post.subtitle %></i><%_ } _%>
-									</div>
-								<%_ } _%>
-								<div class="row post-body">
+						<%_ posts.forEach((post, i) => { _%>
 
-									<%_ if (post.mediaList.length) { _%>
-										<%_ if (post.mediaList.length > 1) { _%>
-											<div class="col-sm-5 post-media carousel slide" id="post-media-carousel" style="height: 300px;">
-									
-												<ol class="carousel-indicators" style="bottom: 0">
-													<%_ post.mediaList.forEach((item, i) => { _%>
-														<li data-target="#post-media-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active ' : '' %>"></li>
-													<%_ }) _%>
-												</ol>
+						<%_ if (i % 2 == 0) { _%>
+							<div class="row">
+						<%_ } _%>
 
-												<div class="carousel-inner" style="height: 100%">
-													<%_ post.mediaList.forEach((item, i) => { _%>
-														<div class="item <%= i == 0 ? 'active ' : '' %>img" style="width: 100%; height: 100%; background-position: center; background-size: contain; background-repeat: no-repeat; background-image: url('/media/<%= item %>');"></div>
-													<%_ }) _%>
-												</div>
-
-												<!-- Left + right arrow controls -->
-												<a class="left carousel-control" data-slide="prev">
-													<span class="glyphicon glyphicon-chevron-left"></span>
-													<span class="sr-only">Previous</span>
-												</a>
-												<a class="right carousel-control" data-slide="next">
-													<span class="glyphicon glyphicon-chevron-right"></span>
-													<span class="sr-only">Next</span>
-												</a>
-											</div>
-										<%_ } else { _%>
-											<div class="col-sm-5 post-media single" style="background-image: url('/media/<%= post.mediaList[0] %>');"></div>
-										<%_ } _%>
-									<%_ } _%>
-
-									<%_ if (post.textbody) { _%>
-										<div class="<%= post.mediaList.length ? 'col-sm-7 ' : '' %>post-textbody">
-										<%_ if (post.textbody.includes('\n')) { _%>
-											<%_ let l = post.textbody.split('\n') _%>
-											<%_ l.forEach((line, i) => { _%>
-												<%= line %>
-												<%_ if (i !== l.length-1) { _%><br><%_ } _%>
-											<%_ }) _%>
-										<%_ } else { _%>
-											<p><%= post.textbody %></p>
-										<%_ } _%>
+							<div class="post col-sm-6" data-id="<%= post._id %>">
+								<div class="post-inner">
+									<%_ if (post.title) { _%>
+										<div class="row post-title">
+											<h2 class="main-title" style="display: inline;"><%= post.title %></h2>
+											<%_ if (post.subtitle) { _%>&#8195;<i class="sub-title" style="display: inline;"><%= post.subtitle %></i><%_ } _%>
 										</div>
 									<%_ } _%>
+									<div class="row post-body">
+
+										<%_ if (post.mediaList.length) { _%>
+											<%_ if (post.mediaList.length > 1) { _%>
+												<div class="post-media carousel slide" id="post-media-carousel" style="height: 300px;">
+										
+													<ol class="carousel-indicators" style="bottom: 0">
+														<%_ post.mediaList.forEach((item, i) => { _%>
+															<li data-target="#post-media-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active ' : '' %>"></li>
+														<%_ }) _%>
+													</ol>
+
+													<div class="carousel-inner" style="height: 100%">
+														<%_ post.mediaList.forEach((item, i) => { _%>
+															<div class="item <%= i == 0 ? 'active ' : '' %>img" style="width: 100%; height: 100%; background-position: center; background-size: contain; background-repeat: no-repeat; background-image: url('/media/<%= item %>');"></div>
+														<%_ }) _%>
+													</div>
+
+													<!-- Left + right arrow controls -->
+													<a class="left carousel-control" data-slide="prev">
+														<span class="glyphicon glyphicon-chevron-left"></span>
+														<span class="sr-only">Previous</span>
+													</a>
+													<a class="right carousel-control" data-slide="next">
+														<span class="glyphicon glyphicon-chevron-right"></span>
+														<span class="sr-only">Next</span>
+													</a>
+												</div>
+											<%_ } else { _%>
+												<div class="post-media single" style="background-image: url('/media/<%= post.mediaList[0] %>');"></div>
+											<%_ } _%>
+										<%_ } _%>
+
+										<%_ if (post.textbody) { _%>
+											<div class="post-textbody">
+											<%_ if (post.textbody.includes('\n')) { _%>
+												<%_ let l = post.textbody.split('\n') _%>
+												<%_ l.forEach((line, i) => { _%>
+													<%= line %>
+													<%_ if (i !== l.length-1) { _%><br><%_ } _%>
+												<%_ }) _%>
+											<%_ } else { _%>
+												<p><%= post.textbody %></p>
+											<%_ } _%>
+											</div>
+										<%_ } _%>
+									</div>
 								</div>
 							</div>
+
+						<%_ if (i % 2 != 0 || i == posts.length-1) { _%>
+							</div>
+						<%_ } _%>
+
 						<%_ }) _%>
 					<%_ } else { _%>
 						<p style="text-align: center;">No blog posts yet...</p>

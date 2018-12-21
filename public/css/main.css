@@ -194,7 +194,7 @@ section, .inner-body {
 .header-news-banner .carousel {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
+    border-radius: 10px;
     margin: 0 1.2em;}
 
 .header-news-banner .carousel-control {
@@ -324,6 +324,16 @@ nav.sidebar-nav .link:not(:last-child) {
 	padding-bottom: 1.5em;
 }
 
+nav.sidebar-nav .inner-nav.fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	padding: 1.5em;
+	transition: .5s background-color;
+	background-color: rgba(0,0,0,.25)
+}
+
 nav.global-nav {
 	display: none;
 }
@@ -357,7 +367,8 @@ nav.global-nav .link a {
 }
 
 .library.page .blog .post {
-	padding-bottom: 3em;
+	padding-bottom: 1.5em;
+	transition: .5s;
 }
 
 .library.page .blog .post-title {
@@ -396,13 +407,27 @@ nav.global-nav .link a {
 	100% { transform: translate(-50%, -50%) rotate(360deg) }
 }
 
+.library.page .blog .post .post-inner {
+	background-color: rgba(0,0,0,.25);
+	padding: 20px;
+	border-radius: 10px;
+}
+
 @media (min-width: 768px) {
+	.library.page .blog .post:nth-child(odd) {
+		padding-right: 10px;
+	}
+
+	.library.page .blog .post .post-inner {
+		border-radius: 0;
+	}
+
 	.library.page .blog .post .post-media {
 		margin-bottom: 0;
 	}
 
 	.library.page .blog .post .post-media + .post-textbody {
-		padding-left: 1.5em
+		padding-top: 1.5em
 	}
 
 	.library.page .blog .post .delete-post {

@@ -58,21 +58,31 @@ var toggleOnScroll = () => {
 
 	if (pageNav.length) {
 		if (window.innerWidth >= 768 && window.pageYOffset > pageNav.offset().top) {
-			$(".inner-nav").css({
-				position: "fixed",
-				top: "0",
-				left: "0",
-				padding: pageNav.css("padding"),
-				width: pageNav.css("width"),
-				height: "100%",
-				transition: ".5s background-color",
-				backgroundColor: "rgba(0,0,0,.25)"
-			});
+			$(".inner-nav").addClass("fixed").css("width", pageNav.css("width"));
 		} else {
-			$(".inner-nav").css({position: "", top: "", left: "", padding: "", width: "", height: "", transition: "", backgroundColor: ""});
+			$(".inner-nav").removeClass("fixed").css("width", "");
 		}
 	}
 };
+
+var alignPosts = () => {
+	if ($(".library.page").length) {
+		if (window.innerWidth >= 768) {
+			$(".post").each(function(i){
+				if (i > 1) {
+
+					var abovePost = $(".post").eq(i-2);
+					var posY = $(this).offset().top - (abovePost.offset().top + abovePost.height() + 10);
+
+					$(this).css("top", "-"+posY+"px");
+
+				}
+			});
+		} else {
+			$(".post").css("top", "");
+		}
+	}
+}
 
 /********************** BOOTSTRAP CAROUSEL JS ***********************/
 
@@ -95,6 +105,10 @@ $(".right").click(function(){
 });
 
 /********************** End of BOOTSTRAP CAROUSEL JS ***********************/
+
+alignPosts();
+
+window.onresize = alignPosts;
 
 $("#toTop").click(function(){
 	$("html, body").animate({
