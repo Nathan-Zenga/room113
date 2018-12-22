@@ -85,6 +85,8 @@ var alignPosts = () => {
 	}
 }
 
+var resizeEventCallbacks = (...func) => { func.forEach(f => window.addEventListener('resize', f, false)) };
+
 /********************** BOOTSTRAP CAROUSEL JS ***********************/
 
 // Activating the carousel (disabling automatic transition)
@@ -108,8 +110,7 @@ $(".right").click(function(){
 /********************** End of BOOTSTRAP CAROUSEL JS ***********************/
 
 alignPosts();
-
-window.onresize = alignPosts;
+resizeEventCallbacks(alignPosts, toggleOnScroll);
 
 $("#toTop").click(function(){
 	$("html, body").animate({
@@ -186,6 +187,7 @@ $("#newpost > .submit").click(function(e) {
 		.fadeOut(function(){
 			$(this).text("").css("display", "");
 		});
+		$npButton.removeAttr("disabled");
 	} else {
 		$.post('/admin/library/post/submit', data, function(msg,s) {
 			if ($("#newpost :file").val()) {
