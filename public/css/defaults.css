@@ -107,3 +107,9 @@ ul {
 .hamburger.is-active:hover, .hamburger:hover {
 	opacity: 1;
 }
+
+.room113 .carousel-control {
+	opacity: 1;
+	background-image: none;
+	text-shadow: 0 0 5px rgb(0,0,0), 0 0 5px rgb(0,0,0);
+}

@@ -4,7 +4,7 @@
 			<%_ include partials/global_nav _%>
 
 			<%_ if (posts && posts.length && !url.includes('post')) { _%>
-				<nav class="col-sm-2 sidebar-nav col dt-view">
+				<nav class="col-sm-2 sidebar-nav col">
 					<div class="inner-nav">
 						<%_ posts.forEach(post => { _%>
 							<div class="row link title"><a href="/library/post/<%= post._id %>">
@@ -15,7 +15,7 @@
 				</nav>
 			<%_ } _%>
 
-			<main class="col-sm-<%= posts && posts.length && !url.includes('post') ? 10 : 12 %> col blog-container">
+			<main class="col blog-container">
 				<div class="blog-body">
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach((post, i) => { _%>
@@ -35,9 +35,9 @@
 							<div class="post col-sm-6 <%= url.includes('post') ? 'centreX' : '' %>" data-id="<%= post._id %>">
 								<div class="post-inner">
 									<%_ if (post.title) { _%>
-										<div class="row post-title">
+										<div class="row title-group">
 											<h1 class="main-title" style="display: inline;"><%= post.title %></h1>
-											<%_ if (post.subtitle) { _%>&#8195;<i class="sub-title" style="display: inline;"><%= post.subtitle %></i><%_ } _%>
+											<%_ if (post.subtitle) { _%><p class="sub-title"><%= post.subtitle %></p><%_ } _%>
 										</div>
 									<%_ } _%>
 									<div class="row post-body">

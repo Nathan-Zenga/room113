@@ -155,14 +155,17 @@ $("#key").click(function(){
 
 $(".menu-icon").click(function() {
 	var deviceType = detect.parse(navigator.userAgent).device.type;
-	var cond = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
-	var elm = cond ? ".global-nav" : "nav";
+	var notSmallScreen = window.innerWidth >= 768 && /Desktop|Tablet/.test(deviceType);
+	var elm = notSmallScreen ? ".global-nav" : "nav";
 	if (!$(".admin").length) {
 		$(this).children().toggleClass("is-active");
 		$(elm).stop().slideToggle(200, function() {
-			if ($(this).css("display") === "none") $(this).css("display", ""); 
-		})
-	};
+			if ($(this).css("display") === "none") $(this).css("display", "") 
+		});
+		if (notSmallScreen) $(".sidebar-nav").stop().toggle(200, function() {
+			if ($(this).css("display") === "none") $(this).css("display", "")
+		});
+	}
 });
 
 var $npButton = $("#newpost > .submit");

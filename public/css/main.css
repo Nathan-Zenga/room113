@@ -197,11 +197,6 @@ section, .inner-body {
     border-radius: 10px;
     margin: 0 1.2em;}
 
-.header-news-banner .carousel-control {
-	opacity: 1;
-	background-image: none;
-}
-
 .admin.page section {
 	padding: 2em 20px;
 }
@@ -302,6 +297,11 @@ section, .inner-body {
 	min-height: 100vh;
 }
 
+.page:not(.home) main.col {
+	left: 0;
+	right: 0;
+}
+
 .library.page .blog-container {
 	overflow: auto;
 	height: 100%;
@@ -313,6 +313,7 @@ section, .inner-body {
 }
 
 nav {
+	display: none;
 	text-align: center;
 }
 
@@ -324,6 +325,10 @@ nav.sidebar-nav .link:not(:last-child) {
 	padding-bottom: 1.5em;
 }
 
+nav.sidebar-nav .inner-nav {
+	white-space: nowrap;
+}
+
 nav.sidebar-nav .inner-nav.fixed {
 	position: fixed;
 	top: 0;
@@ -332,10 +337,6 @@ nav.sidebar-nav .inner-nav.fixed {
 	padding: 1.5em;
 	transition: .5s background-color;
 	background-color: rgba(0,0,0,.25)
-}
-
-nav.global-nav {
-	display: none;
 }
 
 nav.global-nav .link {
@@ -391,13 +392,19 @@ nav.global-nav .link a {
 	top: 2em;
 }
 
-.library.page .blog .post-title {
+.library.page .blog .post .title-group {
 	text-align: center;
 	margin-bottom: 2em!important;
 }
 
-.library.page .blog .main-title {
+.library.page .blog .post .main-title {
 	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.library.page .blog .post .sub-title {
+	font-size: .8em;
+	margin-bottom: 0;
 }
 
 .library.page .blog .post .post-inner {
@@ -468,6 +475,10 @@ nav.global-nav .link a {
 	.studio.page section .col {
 		min-height: 100vh;
 	}
+}
+
+.studio-body .content-row {
+	margin-bottom: 1em;
 }
 
 .studio-body audio {
