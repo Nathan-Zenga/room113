@@ -236,10 +236,14 @@ $(".edit-form .submit").click(function(e) {
 		data[key] = $(this).val();
 	});
 
-	$.post('/admin/library/post/update', data, function(r,s) {
-		result.stop().text(r).delay(5000).fadeOut(function(){
-			$(this).text("").css("display", "");
-		});
+	$.post('/admin/library/post/update', data, function(r) {
+		if (r.err) {
+			alert(r.err)
+		} else {
+			result.stop().text(r).delay(5000).fadeOut(function(){
+				$(this).text("").css("display", "");
+			});
+		}
 	});
 });
 
@@ -248,13 +252,17 @@ $(".delete-post").click(function(){
 	if (c) {
 		var p = $(this).closest(".post");
 		var id = {id: p.attr('id')};
-		$.post('/admin/library/post/delete', id, function(r,s) {
-			p.slideUp(function(){
-				$(this).remove();
-				if (!$(".post").length) $("#posts").css({display: "none", transition: "none"}).html('<p style="text-align: center;">No posts yet...</p>').fadeIn(function() {
-					$(this).css({transition: ""});
+		$.post('/admin/library/post/delete', id, function(r) {
+			if (r.err) {
+				alert(r.err)
+			} else {
+				p.slideUp(function(){
+					$(this).remove();
+					if (!$(".post").length) $("#posts").css({display: "none", transition: "none"}).html('<p style="text-align: center;">No posts yet...</p>').fadeIn(function() {
+						$(this).css({transition: ""});
+					});
 				});
-			});
+			}
 		});
 	}
 });

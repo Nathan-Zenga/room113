@@ -17,19 +17,20 @@
 
 			<main class="col blog-container">
 				<div class="blog-body">
+					<%_ if (url.includes('post')) { _%>
+						<div id="back">
+							<a href="/library">
+								<div class="left-arrow"></div>
+								<span>Back to Library</span>
+							</a>
+						</div>
+					<%_ } _%>
+
 					<%_ if (posts && posts.length) { _%>
 						<%_ posts.forEach((post, i) => { _%>
 
 						<%_ if (i % 2 == 0) { _%>
 							<div class="row post-row">
-							<%_ if (url.includes('post')) { _%>
-								<div id="back">
-									<a href="/library">
-										<div class="left-arrow"></div>
-										<span>Back to Library</span>
-									</a>
-								</div>
-							<%_ } _%>
 						<%_ } _%>
 
 							<div class="post col-sm-6 <%= url.includes('post') ? 'centreX' : '' %>" data-id="<%= post._id %>">
@@ -96,7 +97,7 @@
 
 						<%_ }) _%>
 					<%_ } else { _%>
-						<p style="text-align: center;">No blog posts yet...</p>
+						<p style="text-align: center;<%= url.includes('post') ? 'padding-top: 2em' : '' %>">No blog posts yet...</p>
 					<%_ } _%>
 				</div>
 			</main>

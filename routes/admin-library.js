@@ -45,7 +45,9 @@ router.post('/post/media/upload', (req, res) => {
 
 router.post('/post/update', (req, res) => {
 	blog.findById(req.body.id, (err, post) => {
-		if (err) return err;
+		if (err) return res.send({err: err});
+		if (!post) return res.send({err: 'Post not found'});
+
 		post.title = req.body.title || post.title;
 		post.subtitle = req.body.subtitle || post.subtitle;
 		post.textbody = req.body.textbody || post.textbody;
@@ -58,21 +60,24 @@ router.post('/post/update', (req, res) => {
 });
 
 router.post('/post/delete', (req, res) => {
-	var deleting = () => {
-		blog.deleteOne({ _id: req.body.id }, err => {
+	var deleting = (post) => {
+		blog.deleteOne({ _id: post.id }, err => {
 			if (err) return err;
 			return res.send('/library');
 		});
 	};
 
 	blog.findById(req.body.id, (err, post) => {
+		if (err) return res.send({err: err});
+		if (!post) return res.send({err: 'Post not found'});
+
 		if (post.mediaList.length) {
 			clearMedia(gfs, post.mediaList, 'post_media', err => {
 				if (err) return res.send(err);
-				deleting();
+				deleting(post);
 			})
 		} else {
-			deleting();
+			deleting(post);
 		}
 	})
 });
