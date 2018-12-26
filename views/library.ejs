@@ -45,11 +45,11 @@
 
 										<%_ if (post.mediaList.length) { _%>
 											<%_ if (post.mediaList.length > 1) { _%>
-												<div class="post-media carousel slide" id="post-media-carousel">
+												<div class="post-media carousel slide" id="carousel-<%= post._id %>">
 										
 													<ol class="carousel-indicators" style="bottom: 0">
 														<%_ post.mediaList.forEach((mediaItem, i) => { _%>
-															<li data-target="#post-media-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active ' : '' %>"></li>
+															<li data-target="#carousel-<%= post._id %>" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active ' : '' %>"></li>
 														<%_ }) _%>
 													</ol>
 

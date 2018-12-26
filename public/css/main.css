@@ -414,7 +414,6 @@ nav.global-nav .link a {
 }
 
 .library.page .blog .post .post-media {
-	margin-bottom: .5em;
 	height: 300px;
 }
 
@@ -422,6 +421,10 @@ nav.global-nav .link a {
 	background-position: center;
 	background-size: contain;
 	background-repeat: no-repeat;
+}
+
+.library.page .blog .post .post-media + .post-textbody {
+	padding-top: .5em
 }
 
 .library.page .blog .post .post-media .loader {
@@ -451,10 +454,6 @@ nav.global-nav .link a {
 
 	.library.page .blog .post:nth-child(odd) {
 		padding-right: 10px;
-	}
-
-	.library.page .blog .post .post-media {
-		margin-bottom: 0;
 	}
 
 	.library.page .blog .post .post-media + .post-textbody {
