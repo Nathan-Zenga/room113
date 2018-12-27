@@ -109,7 +109,16 @@ ul {
 }
 
 .room113 .carousel-control {
+	top: 50%;
+	bottom: auto;
+	height: 25%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 	opacity: 1;
 	background-image: none;
 	text-shadow: 0 0 5px rgb(0,0,0), 0 0 5px rgb(0,0,0);
+}
+
+.room113 .modal-backdrop.in {
+	opacity: .7
 }

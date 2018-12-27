@@ -394,7 +394,7 @@ nav.global-nav .link a {
 
 .library.page .blog .post .title-group {
 	text-align: center;
-	margin-bottom: 2em!important;
+	margin-bottom: 20px;
 }
 
 .library.page .blog .post .main-title {
@@ -414,12 +414,14 @@ nav.global-nav .link a {
 }
 
 .library.page .blog .post .post-media {
+	margin: 0 -1.2em;
 	height: 300px;
 }
 
-.library.page .blog .post .post-media.single {
+.library.page .blog .post .post-media.single,
+.library.page .blog .post .post-media.carousel .item {
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 }
 
@@ -454,6 +456,10 @@ nav.global-nav .link a {
 
 	.library.page .blog .post:nth-child(odd) {
 		padding-right: 10px;
+	}
+
+	.library.page .blog .post:nth-child(even) {
+		padding-left: 10px;
 	}
 
 	.library.page .blog .post .post-media + .post-textbody {

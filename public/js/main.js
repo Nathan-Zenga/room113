@@ -73,7 +73,7 @@ var alignPosts = () => {
 				if (i > 1) {
 
 					var abovePost = $(".post").eq(i-2);
-					var posY = $(this).offset().top - (abovePost.offset().top + abovePost.height() + 10);
+					var posY = $(this).offset().top - (abovePost.offset().top + abovePost.height() + 20);
 
 					$(this).css("top", "-"+posY+"px");
 
@@ -136,6 +136,22 @@ if ($(".library.page .post-media").length) {
 		}
 	}
 }
+
+$(".expand-image")
+.each(function() {
+	var elm = this;
+	$("<div></div>").addClass("glyphicon glyphicon-fullscreen").appendTo(elm).css({
+		top: 0,
+		cursor: "pointer",
+		padding: "10px",
+		backgroundColor: "rgba(0,0,0,.5)",
+		zIndex: 1000
+	}).parent().css("text-align", "right")
+})
+.click(function() {
+	var img = $(this).css("background-image") != "none" ? $(this).css("background-image") : $(this).css("src");
+	$("#imageView .image").css("background-image", img);
+});
 
 $("#key").click(function(){
 	var v = 100;
