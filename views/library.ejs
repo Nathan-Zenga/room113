@@ -35,7 +35,7 @@
 						<%_ } _%>
 
 							<div class="post col-sm-6 <%= url.includes('post') ? 'centreX' : '' %>" data-id="<%= post._id %>">
-								<div class="post-inner">
+								<div class="post-inner" style="<%= post.mediaList.length && !post.textbody ? 'padding-bottom: 0' : '' %>">
 									<%_ if (post.title) { _%>
 										<div class="row title-group">
 											<h1 class="main-title" style="display: inline;"><%= post.title %></h1>

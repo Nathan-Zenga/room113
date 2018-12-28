@@ -411,10 +411,11 @@ nav.global-nav .link a {
 	background-color: rgba(0,0,0,.25);
 	padding: 20px;
 	border-radius: 7px;
+	overflow: hidden;
 }
 
 .library.page .blog .post .post-media {
-	margin: 0 -1.2em;
+	margin: 0 -1.25em;
 	height: 300px;
 }
 
@@ -437,6 +438,16 @@ nav.global-nav .link a {
 	border-radius: 50%;
 	-webkit-animation: spin 1s linear infinite;
 	animation: spin 1s linear infinite;
+}
+
+.library.page .blog .post .post-media .glyphicon-fullscreen {
+	top: 100%;
+	cursor: pointer;
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
 }
 
 @-webkit-keyframes spin {
