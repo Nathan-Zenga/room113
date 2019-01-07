@@ -149,15 +149,15 @@ $(".expand-image")
 
 $("#key").click(function(){
 	var v = 100;
-	$(this).css("transition", "0s").addClass("turn").get(0).addEventListener("animationend", function() {
+	$(this).css("transition", "0s").addClass("turn").on("animationend", function() {
 		$(this).fadeOut(function(){
-			$(".door").delay(2000).each(function(i){
+			$(".door").each(function(){
 				v *= -1;
 				$(this).css({transform: "translateX(" + v + "%)"});
 			})
 			.get(-1).addEventListener("transitionend", function() {
 				$(".homescreen").delay(1000).hide();
-				$(".link img").each(function(i) { $(this).delay(i * 400).fadeIn() })
+				$(".link img").each(function(i) { $(this).delay(i * 200).fadeIn() })
 			});
 		});
 	});

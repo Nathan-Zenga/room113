@@ -165,6 +165,7 @@ section, .inner-body {
 
 .index.menu a {
 	position: absolute;
+	transition: 0s;
 }
 
 .index.menu a img {
