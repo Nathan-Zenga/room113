@@ -1,5 +1,4 @@
 module.exports = {
-	db: 'mongodb://nathanzen:thomas96@ds123852.mlab.com:23852/room113',
 	clearMedia: (gfs, list, rootCollection, cb) => {
 		if (typeof list == 'object') {
 			list.forEach(filename => {

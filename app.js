@@ -1,4 +1,5 @@
 var express = require('express'),
+	app = express(),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
 	http = require('http'), // core module
@@ -7,16 +8,15 @@ var express = require('express'),
 	passport = require('passport'),
 	mongoose = require('mongoose'),
 	ejs = require('ejs'),
-	config = require('./config/config');
+	s3 = null;
 
-mongoose.connect(config.db);
+process.env.PWD ? require('dotenv').config() : s3 = new require('aws-sdk').s3({DB: process.env.DB});
+
 let conn = mongoose.connection;
+mongoose.connect(process.env.DB || s3.DB);
 
 conn.once('open', () => { console.log('Connected to db'); });
-
 conn.on('error', (err) => { console.log(err); });
-
-var app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
