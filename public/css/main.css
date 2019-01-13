@@ -466,12 +466,17 @@ nav.global-nav .link a {
 		top: 0;
 	}
 
-	.library.page .blog .post:nth-child(odd) {
+	.library.page .blog .post {
+		padding-left: 10px;
 		padding-right: 10px;
 	}
 
-	.library.page .blog .post:nth-child(even) {
-		padding-left: 10px;
+	.library.page .blog .post:first-child {
+		padding-left: 0;
+	}
+
+	.library.page .blog .post + .post:last-child {
+		padding-right: 0;
 	}
 
 	.library.page .blog .post .post-media + .post-textbody {

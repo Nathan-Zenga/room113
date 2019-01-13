@@ -69,16 +69,14 @@ var toggleOnScroll = () => {
 var alignPosts = () => {
 	if ($(".library.page").length) {
 		if (window.innerWidth >= 768) {
-			$(".post").each(function(i){
-				if (i > 1) {
-
-					var abovePost = $(".post").eq(i-2);
+			$.get('/colspan', function(res) {
+				$(".post-row").not(":first").find(".post").each(function(i){
+					var abovePost = $(".post").eq(i-res.colspan);
 					var posY = $(this).offset().top - (abovePost.offset().top + abovePost.height() + 20);
 
 					$(this).css("top", "-"+posY+"px");
-
-				}
-			});
+				})
+			})
 		} else {
 			$(".post").css("top", "");
 		}
