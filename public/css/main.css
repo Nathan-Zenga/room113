@@ -370,8 +370,7 @@ nav.global-nav .link a {
 
 .library.page .blog #back {
 	cursor: pointer;
-	position: absolute;
-	float: left;
+	margin-bottom: 1em;
 }
 
 .library.page .blog #back .left-arrow {
@@ -390,7 +389,8 @@ nav.global-nav .link a {
 }
 
 .library.page .blog.single-post .post {
-	top: 2em;
+	padding: 0;
+	max-width: 600px;
 }
 
 .library.page .blog .post .title-group {
@@ -462,10 +462,6 @@ nav.global-nav .link a {
 }
 
 @media (min-width: 768px) {
-	.library.page .blog.single-post .post {
-		top: 0;
-	}
-
 	.library.page .blog .post {
 		padding-left: 10px;
 		padding-right: 10px;
