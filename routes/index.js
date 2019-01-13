@@ -5,7 +5,28 @@ var Grid = require('gridfs-stream');
 var blog = require('../models/blogpost');
 var studiopost = require('../models/studiopost');
 var News = require('../models/newsfeed');
-var colspan = 3;
+var colspan = 2;
+
+function split_equally(arr, n, final) {
+	if (arr.length == undefined) arr = [arr]; // checking if arr is array, as all arrays have 'length' prop
+	let tempArr = [], row = [];
+	final = final || [];
+
+	arr.forEach(elm=>{ tempArr.push(elm) });
+
+	for (var i = 0; i < n; i++) {
+		let col = tempArr.shift();
+		if (col) row.push(col);
+	}
+
+	final.push(row);
+
+	if (tempArr.length) {
+		return split_equally(tempArr, n, final)
+	} else {
+		return final
+	}
+}
 
 let conn = mongoose.connection;
 let gfs;
@@ -53,28 +74,10 @@ router.get('/surgery', (req, res) => {
 router.get('/library', (req, res) => {
 	News.find().sort({created_at: -1}).exec((err, news_items) => {
 		blog.find().sort({created_at: -1}).exec((err, posts) => {
-
-			function split_equally(arr, n, final) {
-				let row = [];
-				final = final || [];
-
-				for (var i = 0; i < n; i++) {
-					let col = arr.shift();
-					if (col) row.push(col);
-				}
-
-				final.push(row);
-
-				if (arr.length) {
-					return split_equally(arr, n, final)
-				} else {
-					return final
-				}
-			}
-
 			res.render('library', {
 				page: 'library',
-				posts: split_equally(posts, colspan),
+				posts: posts,
+				postsSplit: split_equally(posts, colspan),
 				items: news_items
 			})
 		})
@@ -87,6 +90,7 @@ router.get('/library/post/:id', (req, res) => {
 			res.render('library', {
 				page: 'library',
 				posts: posts ? [posts] : null,
+				postsSplit: posts ? split_equally(posts, colspan) : null,
 				items: news_items
 			})
 		})
