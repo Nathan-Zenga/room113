@@ -13,5 +13,22 @@ module.exports = {
 			})
 		}
 		cb();
+	},
+	splitPerRow: function divide(arr, n, final) {
+		if (arr.length == undefined) arr = [arr]; // checking if obj type is array, as all arrays have 'length' prop
+		if (final == undefined) final = [];
+		let tempArr = [];
+
+		arr.forEach(elm=>{ tempArr.push(elm) });
+
+		let row = tempArr.slice(0, n);
+		tempArr = tempArr.slice(n);
+		final.push(row);
+
+		if (tempArr.length) {
+			return divide(tempArr, n, final)
+		} else {
+			return final
+		}
 	}
 }
