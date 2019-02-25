@@ -97,6 +97,10 @@ ul {
 	padding: 0;
 }
 
+.hamburger-box {
+	width: 30px;
+}
+
 .hamburger-inner:before,
 .hamburger-inner:after,
 .hamburger-inner {
