@@ -37,7 +37,7 @@
 }
 
 header .inner-header {
-	margin: 1em 0;
+	margin-bottom: 1em;
 }
 
 header .inner-header > div {
@@ -88,6 +88,10 @@ header .logo img {
 	header .logo img {
 		width: 100%;
 		height: auto;
+	}
+
+	header .inner-header {
+		margin-top: 1em;
 	}
 
 	header .inner-header > .menu-icon > div {
@@ -297,11 +301,6 @@ section, .inner-body {
 	}
 }
 
-.page:not(.home) section,
-.page:not(.home) main {
-	min-height: 100vh;
-}
-
 .page:not(.home) main.col {
 	left: 0;
 	right: 0;
@@ -309,11 +308,9 @@ section, .inner-body {
 
 .library.page .blog-container {
 	overflow: auto;
-	height: 100%;
 }
 
 .page:not(.home) .col {
-	height: auto;
 	padding: 1.5em;
 }
 
@@ -324,7 +321,6 @@ nav {
 
 nav.sidebar-nav {
 	background-color: rgba(0,0,0,.25);
-	margin: 0 -15px;
 }
 
 nav.sidebar-nav .link:not(:last-child) {
@@ -338,7 +334,6 @@ nav.sidebar-nav .inner-nav {
 nav.sidebar-nav .inner-nav.fixed {
 	position: fixed;
 	top: 0;
-	left: 0;
 	height: 100%;
 	padding: 1.5em;
 	transition: .5s background-color;
@@ -490,10 +485,6 @@ nav.global-nav .link a {
 		right: 10px;
 		padding: 20px;
 		text-align: left;
-	}
-
-	.studio.page section .col {
-		min-height: 100vh;
 	}
 }
 

@@ -126,3 +126,7 @@ ul {
 .room113 .modal-backdrop.in {
 	opacity: .7
 }
+
+.room113 .container:not(.global-nav) {
+	padding: 0;
+}
