@@ -55,13 +55,13 @@ var toggleOnScroll = () => {
 		$("#toTop").fadeOut()
 	}
 
-	var pageNav = $("nav").not(".global-nav");
+	let pageNav = $(".sidebar-nav");
 
 	if (pageNav.length) {
 		if (window.innerWidth >= 768 && window.pageYOffset > pageNav.offset().top) {
-			$(".inner-nav").addClass("fixed").css("width", pageNav.css("width"));
+			$(".inner-nav").addClass("fixed").css({width: pageNav.css("width"), left: pageNav.offset().left});
 		} else {
-			$(".inner-nav").removeClass("fixed").css("width", "");
+			$(".inner-nav").removeClass("fixed").css({width: "", left: ""});
 		}
 	}
 };
