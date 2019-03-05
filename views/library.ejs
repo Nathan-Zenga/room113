@@ -78,15 +78,7 @@
 
 											<%_ if (post.textbody) { _%>
 												<div class="post-textbody">
-												<%_ if (post.textbody.includes('\n')) { _%>
-													<%_ let l = post.textbody.split('\n') _%>
-													<%_ l.forEach((line, i) => { _%>
-														<%= line %>
-														<%_ if (i !== l.length-1) { _%><br><%_ } _%>
-													<%_ }) _%>
-												<%_ } else { _%>
-													<p><%= post.textbody %></p>
-												<%_ } _%>
+													<p><%- post.textbody.replace(/\n/g, "<br>") %></p>
 												</div>
 											<%_ } _%>
 										</div>
