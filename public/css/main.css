@@ -472,10 +472,6 @@ nav.global-nav .link a {
 		padding-left: 0;
 	}
 
-	.library.page .blog .post + .post:last-child {
-		padding-right: 0;
-	}
-
 	.library.page .blog .post .post-media + .post-textbody {
 		padding-top: 1.5em
 	}

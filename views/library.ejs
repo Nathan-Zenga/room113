@@ -1,6 +1,15 @@
 <%_ include partials/header _%>
 		<%_ include partials/modal _%>
 		<%_ include partials/news_banner _%>
+		<%_ if (colspan) { _%>
+		<style type="text/css">
+			@media (min-width: 768px) {
+				.library.page .blog .post:nth-child(<%= colspan %>) {
+					padding-right: 0;
+				}
+			}
+		</style>
+		<%_ } _%>
 		<section class="blog <%= url.includes('post') ? 'single-post' : '' %>">
 			<%_ include partials/global_nav _%>
 
@@ -84,7 +93,6 @@
 										</div>
 									</div>
 								</div>
-
 							<%_ }) _%>
 							</div>
 							<%_ }) _%>
