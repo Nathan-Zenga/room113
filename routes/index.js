@@ -6,7 +6,7 @@ var blog = require('../models/blogpost');
 var studiopost = require('../models/studiopost');
 var News = require('../models/newsfeed');
 var splitPerRow = require('../config/config').splitPerRow;
-var colspan = 2;
+var colspan = 3;
 
 let conn = mongoose.connection;
 let gfs;
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/colspan', (req, res) => {
-	res.send({colspan: colspan});
+	res.send(String(colspan));
 });
 
 router.get('/admin', (req, res) => {
@@ -56,8 +56,9 @@ router.get('/library', (req, res) => {
 		blog.find().sort({created_at: -1}).exec((err, posts) => {
 			res.render('library', {
 				page: 'library',
-				posts: posts,
+				posts,
 				postsSplit: splitPerRow(posts, colspan),
+				colspan,
 				items: news_items
 			})
 		})
@@ -71,6 +72,7 @@ router.get('/library/post/:id', (req, res) => {
 				page: 'library',
 				posts: posts ? [posts] : null,
 				postsSplit: posts ? splitPerRow(posts, colspan) : null,
+				colspan: null,
 				items: news_items
 			})
 		})
