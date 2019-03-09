@@ -66,13 +66,15 @@ var toggleOnScroll = () => {
 	}
 };
 
+var isLandscape;
 var alignPosts = () => {
-	if ($(".library.page").length) {
+	if ($(".library.page").length && isLandscape !== (window.innerWidth >= 768)) {
 		if (window.innerWidth >= 768) {
-			$.get('/colspan', function(res) {
+			$.get('/colspan', function(colspan) {
+				colspan = parseInt(colspan);
 				$(".post").each(function(i){
-					if (i > res.colspan-1) {
-						var abovePost = $(".post").eq(i-res.colspan);
+					if (i > colspan-1) {
+						var abovePost = $(".post").eq(i-colspan);
 						var posY = $(this).offset().top - (abovePost.offset().top + abovePost.height() + 20);
 
 						$(this).css("top", "-"+posY+"px");
@@ -82,6 +84,7 @@ var alignPosts = () => {
 		} else {
 			$(".post").css("top", "");
 		}
+		isLandscape = (window.innerWidth >= 768);
 	}
 }
 
